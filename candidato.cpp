@@ -20,6 +20,9 @@ int candidato::getSituacao(candidato* c){
 int candidato::getNumero_candidato(candidato* c){
     return c->numero;
 }
+int candidato::candidato::getNumero_partido(candidato* c){
+    return c->numero_partido;
+}
 
  candidato& candidato::operator=(const candidato& c){
      cout<<"entrou aki oh"<<endl;

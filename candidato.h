@@ -20,5 +20,6 @@ class candidato {
     candidato& operator=(const candidato& c);
     static int getSituacao(candidato* c);
     static int getNumero_candidato(candidato* c);
+    static int getNumero_partido(candidato* c);//Retorna o numero do partido
     ~candidato();
 };
