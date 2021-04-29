@@ -17,11 +17,12 @@ class Partidos {
 public:
     Partidos(ifstream& arquivo, candidatos& cands);
     Partidos& operator=(const Partidos& p);
+    static int qtd_partidos(Partidos& p);
+    static Partido* pegaPartido(Partidos& p, int n);
     ~Partidos();
 private:
     ifstream arquivo;
-    int qtd_partidos = 0;
-    list<Partido*> partidos;
+    list<Partido*> lista;
     
 };
 #endif

@@ -6,12 +6,11 @@ Partidos::Partidos (ifstream& arquivo, candidatos& cands){
     string linha;
     
     getline(arquivo, linha);
-    for(;getline(arquivo, linha); this->qtd_partidos++) {
+    while(getline(arquivo, linha)) {
         string* palavras = split(linha);
-        partidos.push_back(new Partido(palavras[0], palavras[1], palavras[2], palavras[3], cands));
+        this->lista.push_back(new Partido(palavras[0], palavras[1], palavras[2], palavras[3], cands));
         delete[] palavras;
     }
-    this->qtd_partidos = this->qtd_partidos + 1;
 }
 
 string* split(string s){
@@ -31,11 +30,24 @@ string* split(string s){
     return texto;
 }
 
+int Partidos::qtd_partidos(Partidos& p){
+    return p.lista.size();
+}
+
+Partido* Partidos::pegaPartido(Partidos& p, int n){
+    int i=0;
+    
+    list <Partido*> :: iterator it;
+    for(it = p.lista.begin(); i<n-1; i++, it++);
+    
+    return *it;
+}
+
 Partidos::~Partidos(){
     Partido* aux;
-    while(!this->partidos.empty()){
-        aux=this->partidos.back();
-        this->partidos.pop_back(); 
+    while(!this->lista.empty()){
+        aux=this->lista.back();
+        this->lista.pop_back(); 
         delete aux; 
     }
 }

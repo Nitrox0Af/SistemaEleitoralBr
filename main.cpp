@@ -33,7 +33,7 @@ int main(int argc, char** argv) {
     cout<< i << endl;
     candidatos *cand = new candidatos(texto, i);
     
-    Partidos* partidos = new Partidos(arquivo_Part.arquivo, *cand);
+    Partidos* parts = new Partidos(arquivo_Part.arquivo, *cand);
     
     //Inicio (Item 1)
     int Numero_eleitos = candidatos::num_eleitos(*cand);
@@ -48,11 +48,18 @@ int main(int argc, char** argv) {
 
     //Fim(Item 2)
     
-    
+    //Inicio (Item 6)
+    cout << endl;
+    cout << "Votação dos partidos e número de candidatos eleitos:" << endl;
+    for(int i=0; i< Partidos::qtd_partidos(*parts); i++){
+        Partido* Aux = Partidos::pegaPartido(*parts, i+1);
+        cout << (i+1) << " - " << Aux->getSigla_part() << " - " << Aux->getNum_partido() << ", " ;
+        cout << Aux->getVotos_leg() << endl;        
+    }
     
     arquivo_Cand.fechar();
     arquivo_Part.fechar();
     delete cand;
-    delete partidos;
+    delete parts;
     return 0;
 }
