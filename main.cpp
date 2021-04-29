@@ -32,6 +32,9 @@ int main(int argc, char** argv) {
     }
     cout<< i << endl;
     candidatos *cand = new candidatos(texto, i);
+    
+    Partidos* partidos = new Partidos(arquivo_Part.arquivo, *cand);
+    
     //Inicio (Item 1)
     int Numero_eleitos = candidatos::num_eleitos(*cand);
     cout << "Numero de vagas: " << Numero_eleitos << endl << endl;
@@ -44,11 +47,8 @@ int main(int argc, char** argv) {
     eleitos = candidatos::getCandidatosEleitos(*cand);
 
     //Fim(Item 2)
-    arquivo_Cand.fechar();
-    arquivo_Part.fechar();
-    delete cand;
-    exit(0);
-    Partidos* partidos = new Partidos(arquivo_Part.arquivo, *cand);
+    
+    
     
     arquivo_Cand.fechar();
     arquivo_Part.fechar();

@@ -17,5 +17,8 @@ class candidatos{
         static int num_eleitos(candidatos& c);
         static candidatos getCandidatosEleitos(candidatos& c);
         static void organizar_por_idade(candidatos& c);
+        
+        static int qtd_candidatos(candidatos& c);
+        static candidato* pegaCandidato(candidatos& c, int n);
         ~candidatos();
 };

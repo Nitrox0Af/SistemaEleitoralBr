@@ -25,6 +25,6 @@ private:
     int votos_leg;
     string nome_part;
     string sigla_part;
-    candidatos cands;
+    list<candidato*> cands;
 };
 

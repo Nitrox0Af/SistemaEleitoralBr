@@ -1,21 +1,15 @@
 #include "Partido.h"
 
 Partido::Partido(string num_part, string votos_leg, string nome_part, string sigla_part, candidatos& cands) {
+    
     setNum_partido(stoi(num_part));
     setVotos_leg(stoi(votos_leg));
     setNome_part(nome_part);
-    setSigla_part(sigla_part);
+    setSigla_part(sigla_part);  
     
-    cout << getNum_partido();
-    cout << getVotos_leg();
-    cout << getNome_part();
-    cout << getSigla_part();
-    
-//    for (int i = 0; i < ; i++) {
-//        if (candidatos[i].getNumero_partido() == this->num_partido) {
-//            candidatos.push_back(candidatos[i]);
-//        }
-//    }
+    for (int i = 0; i < candidatos::qtd_candidatos(cands); i++)
+        if (candidato::getNumero_partido(candidatos::pegaCandidato(cands, i+1)) == this->num_partido)
+            this->cands.push_front(candidatos::pegaCandidato(cands, i+1));
 }
 void Partido::setNum_partido(int num_partido){
     this->num_partido = num_partido;

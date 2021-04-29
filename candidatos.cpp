@@ -80,3 +80,18 @@ candidatos candidatos::getCandidatosEleitos(candidatos& c){
     }
     return aux;
 }
+
+
+
+int candidatos::qtd_candidatos(candidatos& c){
+    return c.lista.size();
+}
+
+candidato* candidatos::pegaCandidato(candidatos& c, int n){
+    int i=0;
+    
+    list <candidato*> :: iterator it;
+    for(it = c.lista.begin(); i<n-1; i++, it++);
+    
+    return *it;
+}

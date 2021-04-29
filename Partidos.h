@@ -16,9 +16,12 @@ using namespace std;
 class Partidos {
 public:
     Partidos(ifstream& arquivo, candidatos& cands);
+    Partidos& operator=(const Partidos& p);
+    ~Partidos();
 private:
     ifstream arquivo;
     int qtd_partidos = 0;
     list<Partido*> partidos;
+    
 };
 #endif
