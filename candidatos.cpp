@@ -5,7 +5,7 @@ candidatos::candidatos(){
 }
 candidatos::candidatos(string* texto, int n){
     string* info;
-    for(int i = 0; i < n-1; i++)
+    for(int i = 0; i < n; i++)
     {
         info=entrada(texto[i]);
         lista.push_front(new candidato(info, 9));
@@ -55,17 +55,26 @@ int candidatos::num_eleitos(candidatos& c){
     return i;
 }
 
-int* candidatos::getCandidatosEleitos(candidatos& c, int n){
-    int *aux = new int[n];
-    //candidatos* aux= new candidatos;
-    //candidato* aux1;
+void candidatos::organizar_por_idade(candidatos& c){
+    candidato *aux1;
+    list <candidato*> :: iterator it;
+    list <candidato*> :: iterator it2;
+    for(it = c.lista.begin(); it != c.lista.end(); ++it){
+        for(it2 = it++; it2 != c.lista.end(); ++it2){
+
+        }
+    }
+}
+
+candidatos candidatos::getCandidatosEleitos(candidatos& c){
+    candidatos aux;
     int i=0;
     list <candidato*> :: iterator it;
     for(it = c.lista.begin(); it != c.lista.end(); ++it){
         if(candidato::getSituacao(*it)){
-            aux[i]=candidato::getNumero_candidato(*it);
-            //aux1=*it;
-            //aux->lista.push_front(aux1);
+            candidato *aux1= new candidato();
+            *aux1=*(*it);
+            aux.lista.push_front(aux1);
             i++;
         }
     }

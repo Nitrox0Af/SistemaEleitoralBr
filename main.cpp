@@ -5,25 +5,23 @@
 using namespace std;
 
 int main(int argc, char** argv) {
-    string arq_nomeCand = argv[1];
-    string arq_nomePart = argv[2];
-    string data = argv[3];
+    string arq_nomeCand = "candidatos.csv";
+    string arq_nomePart = "partidos.csv";
+    string data = "15/05/2000";
 
 
     Arquivo arquivo_Cand = Arquivo(arq_nomeCand);
     if (!arquivo_Cand.arquivo.is_open()) {
-        cout << "\nNão foi possivel abrir o arquivo: " + arq_nomeCand;
+        cout << "\nNão foi possivel abrir o arquivo: " << arq_nomeCand << endl;
         return 0;
     }
     Arquivo arquivo_Part = Arquivo(arq_nomePart);
     if (!arquivo_Cand.arquivo.is_open()) {
-        cout << "\nNão foi possivel abrir o arquivo: " + arq_nomePart;
+        cout << "\nNão foi possivel abrir o arquivo: " << arq_nomePart << endl;
         return 0;
     }
     
-    
-    
-    
+
     string line;
     string texto[2000];
     int i = 0;
@@ -32,6 +30,7 @@ int main(int argc, char** argv) {
         texto[i] = line;
         i++;
     }
+    cout<< i << endl;
     candidatos *cand = new candidatos(texto, i);
     //Inicio (Item 1)
     int Numero_eleitos = candidatos::num_eleitos(*cand);
@@ -39,14 +38,16 @@ int main(int argc, char** argv) {
     // Fim (Item 1)
     
     // inicio(Item2)
-    //candidatos eleitos;
-    
-    int *eleitos = new int[Numero_eleitos];
+    candidatos eleitos;
+    //int *eleitos;
     i = 0;
-    eleitos = candidatos::getCandidatosEleitos(*cand, Numero_eleitos);
+    eleitos = candidatos::getCandidatosEleitos(*cand);
+
     //Fim(Item 2)
-    
-    
+    arquivo_Cand.fechar();
+    arquivo_Part.fechar();
+    delete cand;
+    exit(0);
     Partidos* partidos = new Partidos(arquivo_Part.arquivo, *cand);
     
     arquivo_Cand.fechar();

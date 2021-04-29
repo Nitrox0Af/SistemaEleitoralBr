@@ -15,6 +15,7 @@ class candidatos{
         candidatos();
         candidatos& operator=(const candidatos& c);
         static int num_eleitos(candidatos& c);
-        static int* getCandidatosEleitos(candidatos& c, int n);
+        static candidatos getCandidatosEleitos(candidatos& c);
+        static void organizar_por_idade(candidatos& c);
         ~candidatos();
 };

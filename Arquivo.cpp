@@ -1,4 +1,5 @@
 #include "Arquivo.h"
+#include <fstream>
 
 Arquivo::Arquivo (string arq_nome){
     setNome(arq_nome);

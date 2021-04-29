@@ -4,7 +4,6 @@ string* split(string s);
 
 Partidos::Partidos (ifstream& arquivo, candidatos& cands){
     string linha;
-    cout << "chego aqui";
     for (; getline(arquivo, linha); this->qtd_partidos++) {
         string* palavras = split(linha);
         partidos.push_back(new Partido(palavras[0], palavras[1], palavras[2], palavras[3], cands));
