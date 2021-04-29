@@ -1,87 +1,160 @@
 #include "candidatos.h"
-string* entrada(string s);
 
-candidatos::candidatos(){
+string *entrada(string s);
+
+vector<int> Retorna_data(string s);
+
+candidatos::candidatos() {
 }
-candidatos::candidatos(string* texto, int n){
-    string* info;
-    for(int i = 0; i < n; i++)
-    {
-        info=entrada(texto[i]);
+
+candidatos::candidatos(string *texto, int n) {
+    string *info;
+    for (int i = 0; i < n; i++) {
+        info = entrada(texto[i]);
         lista.push_front(new candidato(info, 9));
         delete[] info;
     }
 }
 
-string* entrada(string s)
-{
+list<candidato*> candidatos::getLista(candidatos* c){
+    return c->lista;
+}
+
+static  candidatos* candidatos::candidatosMaisVotados(candidatos &c, int Num_max){
+
+}
+
+string *entrada(string s) {
     string del = ",";
     int start = 0;
     int end = s.find(del);
-    int i=0;
-    string* texto = new string[9];
-    while (end != -1)
-    {
-        texto[i]=s.substr(start, end - start);
+    int i = 0;
+    string *texto = new string[9];
+    while (end != -1) {
+        texto[i] = s.substr(start, end - start);
         i++;
         start = end + del.size();
         end = s.find(del, start);
     }
-    texto[i]=s.substr(start, end - start);
+    texto[i] = s.substr(start, end - start);
     return texto;
 }
 
-candidatos::~candidatos(){
-    candidato* aux;
-    while(!lista.empty()){
-        aux=lista.back();
+candidatos::~candidatos() {
+    candidato *aux;
+    while (!lista.empty()) {
+        aux = lista.back();
         lista.pop_back(); /* delete the pointer from the list */
         delete aux; /* free the allocated memory */
     }
 }
 
-candidatos& candidatos::operator=(const candidatos& c){
+candidatos &candidatos::operator=(const candidatos &c) {
     return *this;
 }
 
-int candidatos::num_eleitos(candidatos& c){
-    int i=0;
-    list <candidato*> :: iterator it;
-    for(it = c.lista.begin(); it != c.lista.end(); ++it){
-        if(candidato::getSituacao(*it)){
+int candidatos::num_eleitos(candidatos &c) {
+    int i = 0;
+    list<candidato *>::iterator it;
+    for (it = c.lista.begin(); it != c.lista.end(); ++it) {
+        if (candidato::getSituacao(*it)) {
             i++;
         }
     }
     return i;
 }
 
-void candidatos::organizar_por_idade(candidatos& c){
+void candidatos::organizar_por_votos_nominais(candidatos *c) {
     candidato *aux1;
-    list <candidato*> :: iterator it;
-    list <candidato*> :: iterator it2;
-    for(it = c.lista.begin(); it != c.lista.end(); ++it){
-        for(it2 = it++; it2 != c.lista.end(); ++it2){
-
+    list<candidato *>::iterator it;
+    list<candidato *>::iterator it2;
+    int i = 1;
+    int aux2;
+    int aux3;
+    vector<int> num1;
+    vector<int> num2;
+    for (it = c->lista.begin(); it != c->lista.end(); ++it, i++) {
+        for (it2 = it, ++it2; it2 != c->lista.end(); ++it2) {
+            aux2 = candidato::getVotos_nominais(*it);
+            aux3 = candidato::getVotos_nominais(*it2);
+            if (aux3 > aux2) {
+                aux1 = *it;
+                *it = *it2;
+                *it2 = aux1;
+            } else if (aux3 < aux2) {
+                //fazer nada
+            } else if (aux3 == aux2) {
+                if(organizar_por_idade(*it,*it2)){
+                    aux1 = *it;
+                    *it = *it2;
+                    *it2 = aux1;
+                }
+            }
         }
     }
 }
 
-candidatos candidatos::getCandidatosEleitos(candidatos& c){
-    candidatos aux;
-    int i=0;
-    list <candidato*> :: iterator it;
-    for(it = c.lista.begin(); it != c.lista.end(); ++it){
-        if(candidato::getSituacao(*it)){
-            candidato *aux1= new candidato();
-            *aux1=*(*it);
-            aux.lista.push_front(aux1);
-            i++;
+int candidatos::organizar_por_idade(candidato* c,candidato* d){
+    candidato *aux;
+    string aux1;
+    string aux2;
+    vector<int> num1;
+    vector<int> num2;
+    aux1 = candidato::getData_nasc(c);
+    aux2 = candidato::getData_nasc(d);
+    num1 = Retorna_data(aux1);
+    num2 = Retorna_data(aux2);
+    if (num1[2] > num2[2]) {
+        return 1; //c mais novo
+    } else if (num1[2] < num2[2]) {
+        return 0; // d mais velho
+    }
+    else if (num1[2] == num2[2]) {
+        if (num1[1] > num2[1]) {
+            return 1;
+        } else if (num1[1] < num2[1]) {
+            return 0;
+        }
+        else if (num1[1] == num2[1]) {
+            if (num1[0] > num2[0]) {
+                return 1;
+            } else if (num1[0] <= num2[0]) {
+                return 0;
+            }
         }
     }
+}
+
+vector<int> Retorna_data(string s) {
+    vector<int> aux;
+    string del = "/";
+    int start = 0;
+    int end = s.find(del);
+    aux.push_back(stoi(s.substr(start, end - start)));
+    start = end + del.size();
+    end = s.find(del, start);
+    aux.push_back(stoi(s.substr(start, end - start)));
+    start = end + del.size();
+    end = s.find(del, start);
+    aux.push_back(stoi(s.substr(start, end - start)));
     return aux;
 }
 
-
+candidatos* candidatos::getCandidatosEleitos(candidatos &c) {
+    candidatos* aux = new candidatos;
+    int i = 0;
+    list<candidato *>::iterator it;
+    for (it = c.lista.begin(); it != c.lista.end(); ++it) {
+        if (candidato::getSituacao(*it)) {
+            candidato *aux1 = new candidato();
+            *aux1 = *(*it);
+            aux->lista.push_front(aux1);
+            i++;
+        }
+    }
+    organizar_por_votos_nominais(aux);
+    return aux;
+}
 
 int candidatos::qtd_candidatos(candidatos& c){
     return c.lista.size();

@@ -30,7 +30,6 @@ int main(int argc, char** argv) {
         texto[i] = line;
         i++;
     }
-    cout<< i << endl;
     candidatos *cand = new candidatos(texto, i);
     
     Partidos* parts = new Partidos(arquivo_Part.arquivo, *cand);
@@ -39,13 +38,21 @@ int main(int argc, char** argv) {
     int Numero_eleitos = candidatos::num_eleitos(*cand);
     cout << "Numero de vagas: " << Numero_eleitos << endl << endl;
     // Fim (Item 1)
-    
-    // inicio(Item2)
-    candidatos eleitos;
-    //int *eleitos;
-    i = 0;
-    eleitos = candidatos::getCandidatosEleitos(*cand);
 
+    // inicio(Item2)
+    candidatos *eleitos=NULL;
+    eleitos = candidatos::getCandidatosEleitos(*cand);
+    cout<<"Vereadores eleitos:"<<endl;
+    i = 1;
+    list<candidato *>::iterator it;
+    list<candidato *> listaAux = candidatos::getLista(eleitos);
+    for (it = listaAux.begin(); it != listaAux.end(); ++it, i++) {
+        cout<<i<<" - ";
+        cout<<candidato::getNome(*it)<<" / ";
+        cout<<candidato::getNome_urna(*it)<<"(";
+        cout<<"colocar nome partido"<<", ";
+        cout<<candidato::getVotos_nominais(*it)<<" votos)"<<endl;
+    }
     //Fim(Item 2)
     
     //Inicio (Item 6)

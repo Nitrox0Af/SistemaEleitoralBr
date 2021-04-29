@@ -15,9 +15,13 @@ class candidatos{
         candidatos();
         candidatos& operator=(const candidatos& c);
         static int num_eleitos(candidatos& c);
-        static candidatos getCandidatosEleitos(candidatos& c);
-        static void organizar_por_idade(candidatos& c);
-        
+        static candidatos* getCandidatosEleitos(candidatos& c);
+        static int organizar_por_idade(candidato* c,candidato* d);//1 para d mais velho e 0 para c mais velho
+        static list<candidato*> getLista(candidatos* c);
+        static void organizar_por_votos_nominais(candidatos *c);
+        static  candidatos* candidatosMaisVotados(candidatos &c, int Num_max);
+
+
         static int qtd_candidatos(candidatos& c);
         static candidato* pegaCandidato(candidatos& c, int n);
         ~candidatos();
