@@ -62,7 +62,7 @@ int main(int argc, char** argv) {
     maisVotados=candidatos::candidatosMaisVotados(*cand, Numero_eleitos);
     i=1;
     listaAux = candidatos::getLista(maisVotados);
-    for (it = listaAux.begin(); i<=6 ; ++it, i++) {
+    for (it = listaAux.begin(); i<=Numero_eleitos ; ++it, i++) {
         cout<<i<<" - ";
         cout<<candidato::getNome(*it)<<" / ";
         cout<<candidato::getNome_urna(*it)<<"(";
@@ -70,6 +70,27 @@ int main(int argc, char** argv) {
         cout<<candidato::getVotos_nominais(*it)<<" votos)"<<endl;
     }
     //Fim(Item 3)
+
+    //inicio(Item4)
+    cout<<"Teriam sido eleitos se a votação fosse majoritária, e não foram eleitos:" << endl;
+    cout<<"(com sua posição no ranking de mais votados)";
+    cout << endl<< endl;
+    candidatos *Teriam_eleitos= NULL;
+    Teriam_eleitos= candidatos::candidatosMaisVotados(*cand, Numero_eleitos);
+    i=1;
+    listaAux = candidatos::getLista(Teriam_eleitos);
+    for (it = listaAux.begin(); i<=Numero_eleitos ; ++it, i++) {
+        if(candidato::getSituacao(*it)==1){
+            i--;
+            continue;
+        }
+        cout<<i<<" - ";
+        cout<<candidato::getNome(*it)<<" / ";
+        cout<<candidato::getNome_urna(*it)<<"(";
+        cout<<"colocar nome partido"<<", ";
+        cout<<candidato::getVotos_nominais(*it)<<" votos)"<<endl;
+    }
+    //Fim(Item 4)
 
     //Inicio (Item 6)
     cout << endl;
