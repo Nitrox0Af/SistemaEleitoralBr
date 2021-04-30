@@ -54,7 +54,23 @@ int main(int argc, char** argv) {
         cout<<candidato::getVotos_nominais(*it)<<" votos)"<<endl;
     }
     //Fim(Item 2)
-    
+
+    //inicio(Item3)
+    cout<<"Candidatos mais votados (em ordem decrescente de votação e respeitando número de vagas):";
+    cout << endl<< endl;
+    candidatos *maisVotados= NULL;
+    maisVotados=candidatos::candidatosMaisVotados(*cand, Numero_eleitos);
+    i=1;
+    listaAux = candidatos::getLista(maisVotados);
+    for (it = listaAux.begin(); i<=6 ; ++it, i++) {
+        cout<<i<<" - ";
+        cout<<candidato::getNome(*it)<<" / ";
+        cout<<candidato::getNome_urna(*it)<<"(";
+        cout<<"colocar nome partido"<<", ";
+        cout<<candidato::getVotos_nominais(*it)<<" votos)"<<endl;
+    }
+    //Fim(Item 3)
+
     //Inicio (Item 6)
     cout << endl;
     cout << "Votação dos partidos e número de candidatos eleitos:" << endl;

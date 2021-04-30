@@ -7,6 +7,13 @@ vector<int> Retorna_data(string s);
 candidatos::candidatos() {
 }
 
+candidatos* candidatos::candidatosMaisVotados(candidatos &c, int Num_max){
+    candidatos* aux = new candidatos;
+    *aux=c;
+    organizar_por_votos_nominais(aux);
+    return aux;
+}
+
 candidatos::candidatos(string *texto, int n) {
     string *info;
     for (int i = 0; i < n; i++) {
@@ -21,7 +28,10 @@ list<candidato*> candidatos::getLista(candidatos* c){
 }
 
 static  candidatos* candidatos::candidatosMaisVotados(candidatos &c, int Num_max){
-
+    candidatos* aux = new candidatos;
+    *aux=c;
+    organizar_por_votos_nominais(aux);
+    return aux;
 }
 
 string *entrada(string s) {
@@ -49,7 +59,16 @@ candidatos::~candidatos() {
     }
 }
 
-candidatos &candidatos::operator=(const candidatos &c) {
+candidatos &candidatos::operator=(candidatos &c) {
+    if(!this->lista.empty()){
+        delete this;
+    }
+    list<candidato*>::iterator it;
+    for (it = c.lista.begin(); it != c.lista.end(); ++it) {
+        candidato *aux1 = new candidato();
+        *aux1 = *(*it);
+        this->lista.push_front(aux1);
+    }
     return *this;
 }
 

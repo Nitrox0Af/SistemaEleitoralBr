@@ -13,7 +13,7 @@ class candidatos{
     public:
         candidatos(string* texto, int n);
         candidatos();
-        candidatos& operator=(const candidatos& c);
+        candidatos& operator=(candidatos& c);
         static int num_eleitos(candidatos& c);
         static candidatos* getCandidatosEleitos(candidatos& c);
         static int organizar_por_idade(candidato* c,candidato* d);//1 para d mais velho e 0 para c mais velho
