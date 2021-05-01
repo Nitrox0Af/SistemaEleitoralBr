@@ -18,7 +18,9 @@ public:
     Partidos(ifstream& arquivo, candidatos& cands);
     Partidos& operator=(const Partidos& p);
     static int qtd_partidos(Partidos& p);
-    static Partido* pegaPartido(Partidos& p, int n);
+    static Partido* getPartido(Partidos& p, int n);
+    static void organizaPartidos(Partidos& p);
+    static bool comparaVotos(Partido* a, Partido* b);
     ~Partidos();
 private:
     ifstream arquivo;

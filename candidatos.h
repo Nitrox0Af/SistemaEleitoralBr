@@ -60,6 +60,5 @@ public:
     //parametro de entrada: a lista de candidato;
 
     static int qtd_candidatos(candidatos& c);
-    static candidato* pegaCandidato(candidatos& c, int n);
+    static candidato* getCandidato(candidatos& c, int n);
 };
-

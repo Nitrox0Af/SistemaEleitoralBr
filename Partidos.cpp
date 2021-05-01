@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include "Partidos.h"
 
 string* split(string s);
@@ -14,19 +16,12 @@ Partidos::Partidos (ifstream& arquivo, candidatos& cands){
 }
 
 string* split(string s){
-    string del = ",";
-    int start = 0;
-    int end = s.find(del);
-    int i=0;
     string* texto = new string[4];
-    while (end != -1)
-    {
-        texto[i]=s.substr(start, end - start);
-        i++;
-        start = end + del.size();
-        end = s.find(del, start);
+    
+    for(int i=0; i < 4; i++){
+        texto[i] = s.substr(0, s.find(","));
+        s = s.substr(s.find(",")+1, s.size()-1);
     }
-    texto[i]=s.substr(start, end - start);
     return texto;
 }
 
@@ -34,13 +29,27 @@ int Partidos::qtd_partidos(Partidos& p){
     return p.lista.size();
 }
 
-Partido* Partidos::pegaPartido(Partidos& p, int n){
-    int i=0;
+Partido* Partidos::getPartido(Partidos& p, int n){
+    list <Partido*> :: iterator it =p.lista.begin();
     
-    list <Partido*> :: iterator it;
-    for(it = p.lista.begin(); i<n-1; i++, it++);
+    for(int i=0; i<n-1; i++, it++);
     
     return *it;
+}
+
+void Partidos::organizaPartidos(Partidos& p){
+    p.lista.sort(Partidos::comparaVotos);
+}
+
+bool Partidos::comparaVotos(Partido* a, Partido* b){
+    int votosA = a->getVotos_nome() + a->getVotos_leg();
+    int votosB = b->getVotos_nome() + b->getVotos_leg();
+    if (votosA > votosB)
+       return true;
+    else if(votosA == votosB)
+        if(a->getNum_partido() < b->getNum_partido())
+            return true;
+    return false;
 }
 
 Partidos::~Partidos(){

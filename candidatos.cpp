@@ -185,7 +185,7 @@ int candidatos::qtd_candidatos(candidatos& c){
     return c.lista.size();
 }
 
-candidato* candidatos::pegaCandidato(candidatos& c, int n){
+candidato* candidatos::getCandidato(candidatos& c, int n){
     int i=0;
     
     list <candidato*> :: iterator it;

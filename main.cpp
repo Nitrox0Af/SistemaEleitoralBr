@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 #include "Arquivo.h"
 #include "Partidos.h"
 using namespace std;
@@ -33,7 +34,7 @@ int main(int argc, char** argv) {
     candidatos *cand = new candidatos(texto, i);
     
     Partidos* parts = new Partidos(arquivo_Part.arquivo, *cand);
-
+    
     //Inicio (Item 1)
     int Numero_eleitos = candidatos::num_eleitos(*cand);
     cout << "Numero de vagas: " << Numero_eleitos << endl << endl;
@@ -110,15 +111,43 @@ int main(int argc, char** argv) {
     }
     //Fim(Item 5)
 
-    /*//Inicio (Item 6)
-    cout << endl;
-    cout << "Votação dos partidos e número de candidatos eleitos:" << endl;
-    for(int i=0; i< Partidos::qtd_partidos(*parts); i++){
-        Partido* Aux = Partidos::pegaPartido(*parts, i+1);
-        cout << (i+1) << " - " << Aux->getSigla_part() << " - " << Aux->getNum_partido() << ", " ;
-        cout << Aux->getVotos_leg() << endl;        
+    //Inicio (Item 6)
+    cout << "\n\n" << "Votação dos partidos e número de candidatos eleitos:";
+    Partidos* ordenado = parts;
+    Partidos::organizaPartidos(*ordenado);
+    for(int i=0; i< Partidos::qtd_partidos(*ordenado); i++){
+        Partido* aux = Partidos::getPartido(*ordenado, i+1);
+        cout << endl << (i+1) << " - " << aux->getSigla_part() << " - " << aux->getNum_partido() << ", " ;
+        
+        if((aux->getVotos_leg() + aux->getVotos_nome()) < 2)
+            cout << (aux->getVotos_leg() + aux->getVotos_nome()) << " voto (";
+        else
+            cout << (aux->getVotos_leg() + aux->getVotos_nome()) << " votos (";
+        
+        if(aux->getVotos_nome() < 2)
+            cout << aux->getVotos_nome() << " nominal e " << aux->getVotos_leg() << " de legenda), ";
+        else
+            cout << aux->getVotos_nome() << " nominais e " << aux->getVotos_leg() << " de legenda), ";
+        
+        if(aux->getQtd_eleitos() < 2)
+            cout << aux->getQtd_eleitos() << " candidato eleito";
+        else
+            cout << aux->getQtd_eleitos() << " candidatos eleitos";
     }
-    */
+    //Fim (Item 6)
+    
+    //Inicio (Item 7)
+    cout << "\n\n" << "Primeiro e último colocados de cada partido:";
+    candidato** c = new candidato*[Partidos::qtd_partidos(*parts)];
+    for(int i=0; i< Partidos::qtd_partidos(*parts); i++){
+        Partido* aux = Partidos::getPartido(*parts, i+1);
+        c[i] = new candidato[2];
+        c[i][0] = *aux->getMaisVotado();
+        c[i][1] = *aux->getMenosVotado();
+    }
+    delete[] c;
+    //Fim (Item 7)
+    
     arquivo_Cand.fechar();
     arquivo_Part.fechar();
     delete cand;
