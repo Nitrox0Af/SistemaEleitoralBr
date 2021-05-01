@@ -69,6 +69,7 @@ int main(int argc, char** argv) {
         cout<<"colocar nome partido"<<", ";
         cout<<candidato::getVotos_nominais(*it)<<" votos)"<<endl;
     }
+    cout << endl<< endl;
     //Fim(Item 3)
 
     //inicio(Item4)
