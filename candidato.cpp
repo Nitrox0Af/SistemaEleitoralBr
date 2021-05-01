@@ -1,5 +1,5 @@
 #include "candidato.h"
-candidato::candidato(string* info, int n){
+candidato::candidato(string* info){
     numero = stoi(info[0]);
     votos_nominais=stoi(info[1]);
     situacao=info[2];
@@ -21,6 +21,25 @@ candidato::candidato(){
     destino_voto="";
     numero_partido=0;
 }
+
+candidato::~candidato(){
+}
+
+candidato& candidato::operator=(const candidato& c){
+    if (this == &c)
+        return *this;
+    this->numero=c.numero;
+    this->votos_nominais=c.votos_nominais;
+    this->nome=c.nome;
+    this->situacao=c.situacao;
+    this->nome_urna=c.nome_urna;
+    this->sexo=c.sexo;
+    this->data_nasc=c.data_nasc;
+    this->destino_voto=c.destino_voto;
+    this->numero_partido=c.numero_partido;
+    return *this;
+}
+
 int candidato::getSituacao(candidato* c){
     int i=0;
     if(c->situacao == "Eleito"){
@@ -55,20 +74,3 @@ string candidato::getData_nasc(candidato* c){
 string candidato::getDestino_voto(candidato* c){
     return c->destino_voto;
 }
-
-candidato& candidato::operator=(const candidato& c){
-    if (this == &c)
-        return *this;
-        this->numero=c.numero;
-        this->votos_nominais=c.votos_nominais;
-        this->nome=c.nome;
-        this->situacao=c.situacao;
-        this->nome_urna=c.nome_urna;
-        this->sexo=c.sexo;
-        this->data_nasc=c.data_nasc;
-        this->destino_voto=c.destino_voto;
-        this->numero_partido=c.numero_partido;
-    return *this;
-}
-
-candidato::~candidato(){}

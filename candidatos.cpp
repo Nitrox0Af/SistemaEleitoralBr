@@ -1,55 +1,30 @@
 #include "candidatos.h"
 
-string *entrada(string s);
-
 vector<int> Retorna_data(string s);
+//retorna um vetor do tipo int
+//configorado da seguinte forma dd/mm/aaaa
 
+string *entrada(string s);
+//funcao auxiliar de canidatos
+//recebe uma string e retorna um vetor de strings alocados
+//esse vetor tera sempre 9 strings alocados
+//cada string recebe uma informacao de s,
+//sendo s contem as informacoes de cada candidato separado por virgulas
+
+//construtores:
 candidatos::candidatos() {
-}
-
-candidatos* candidatos::candidatosMaisVotados(candidatos &c, int Num_max){
-    candidatos* aux = new candidatos;
-    *aux=c;
-    organizar_por_votos_nominais(aux);
-    return aux;
 }
 
 candidatos::candidatos(string *texto, int n) {
     string *info;
     for (int i = 0; i < n; i++) {
         info = entrada(texto[i]);
-        lista.push_front(new candidato(info, 9));
+        lista.push_front(new candidato(info));
         delete[] info;
     }
 }
 
-list<candidato*> candidatos::getLista(candidatos* c){
-    return c->lista;
-}
-
-static  candidatos* candidatos::candidatosMaisVotados(candidatos &c, int Num_max){
-    candidatos* aux = new candidatos;
-    *aux=c;
-    organizar_por_votos_nominais(aux);
-    return aux;
-}
-
-string *entrada(string s) {
-    string del = ",";
-    int start = 0;
-    int end = s.find(del);
-    int i = 0;
-    string *texto = new string[9];
-    while (end != -1) {
-        texto[i] = s.substr(start, end - start);
-        i++;
-        start = end + del.size();
-        end = s.find(del, start);
-    }
-    texto[i] = s.substr(start, end - start);
-    return texto;
-}
-
+//destrutor:
 candidatos::~candidatos() {
     candidato *aux;
     while (!lista.empty()) {
@@ -59,7 +34,8 @@ candidatos::~candidatos() {
     }
 }
 
-candidatos &candidatos::operator=(candidatos &c) {
+//operadores:
+candidatos& candidatos::operator=(candidatos &c) {
     if(!this->lista.empty()){
         delete this;
     }
@@ -72,6 +48,27 @@ candidatos &candidatos::operator=(candidatos &c) {
     return *this;
 }
 
+//Funcoes
+candidatos* candidatos::getCandidatosEleitos(candidatos &c) {
+    candidatos* aux = new candidatos;
+    int i = 0;
+    list<candidato *>::iterator it;
+    for (it = c.lista.begin(); it != c.lista.end(); ++it) {
+        if (candidato::getSituacao(*it)) {
+            candidato *aux1 = new candidato();
+            *aux1 = *(*it);
+            aux->lista.push_front(aux1);
+            i++;
+        }
+    }
+    organizar_por_votos_nominais(aux);
+    return aux;
+}
+
+list<candidato*> candidatos::getLista(candidatos* c){
+    return c->lista;
+}
+
 int candidatos::num_eleitos(candidatos &c) {
     int i = 0;
     list<candidato *>::iterator it;
@@ -81,6 +78,38 @@ int candidatos::num_eleitos(candidatos &c) {
         }
     }
     return i;
+}
+
+int candidatos::organizar_por_idade(candidato* c,candidato* d){
+    candidato *aux;
+    string aux1;
+    string aux2;
+    vector<int> num1;
+    vector<int> num2;
+    aux1 = candidato::getData_nasc(c);
+    aux2 = candidato::getData_nasc(d);
+    num1 = Retorna_data(aux1);
+    num2 = Retorna_data(aux2);
+    if (num1[2] > num2[2]) {
+        return 1; //c mais novo
+    } else if (num1[2] < num2[2]) {
+        return 0; // d mais velho
+    }
+    else if (num1[2] == num2[2]) {
+        if (num1[1] > num2[1]) {
+            return 1;
+        } else if (num1[1] < num2[1]) {
+            return 0;
+        }
+        else if (num1[1] == num2[1]) {
+            if (num1[0] > num2[0]) {
+                return 1;
+            } else if (num1[0] <= num2[0]) {
+                return 0;
+            }
+        }
+    }
+    return 0;
 }
 
 void candidatos::organizar_por_votos_nominais(candidatos *c) {
@@ -113,35 +142,11 @@ void candidatos::organizar_por_votos_nominais(candidatos *c) {
     }
 }
 
-int candidatos::organizar_por_idade(candidato* c,candidato* d){
-    candidato *aux;
-    string aux1;
-    string aux2;
-    vector<int> num1;
-    vector<int> num2;
-    aux1 = candidato::getData_nasc(c);
-    aux2 = candidato::getData_nasc(d);
-    num1 = Retorna_data(aux1);
-    num2 = Retorna_data(aux2);
-    if (num1[2] > num2[2]) {
-        return 1; //c mais novo
-    } else if (num1[2] < num2[2]) {
-        return 0; // d mais velho
-    }
-    else if (num1[2] == num2[2]) {
-        if (num1[1] > num2[1]) {
-            return 1;
-        } else if (num1[1] < num2[1]) {
-            return 0;
-        }
-        else if (num1[1] == num2[1]) {
-            if (num1[0] > num2[0]) {
-                return 1;
-            } else if (num1[0] <= num2[0]) {
-                return 0;
-            }
-        }
-    }
+candidatos* candidatos::candidatosMaisVotados(candidatos &c){
+    candidatos* aux = new candidatos;
+    *aux=c;
+    organizar_por_votos_nominais(aux);
+    return aux;
 }
 
 vector<int> Retorna_data(string s) {
@@ -159,21 +164,22 @@ vector<int> Retorna_data(string s) {
     return aux;
 }
 
-candidatos* candidatos::getCandidatosEleitos(candidatos &c) {
-    candidatos* aux = new candidatos;
+string *entrada(string s) {
+    string del = ",";
+    int start = 0;
+    int end = s.find(del);
     int i = 0;
-    list<candidato *>::iterator it;
-    for (it = c.lista.begin(); it != c.lista.end(); ++it) {
-        if (candidato::getSituacao(*it)) {
-            candidato *aux1 = new candidato();
-            *aux1 = *(*it);
-            aux->lista.push_front(aux1);
-            i++;
-        }
+    string *texto = new string[9];
+    while (end != -1) {
+        texto[i] = s.substr(start, end - start);
+        i++;
+        start = end + del.size();
+        end = s.find(del, start);
     }
-    organizar_por_votos_nominais(aux);
-    return aux;
+    texto[i] = s.substr(start, end - start);
+    return texto;
 }
+
 
 int candidatos::qtd_candidatos(candidatos& c){
     return c.lista.size();
