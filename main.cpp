@@ -90,8 +90,26 @@ int main(int argc, char** argv) {
         cout<<"colocar nome partido"<<", ";
         cout<<candidato::getVotos_nominais(*it)<<" votos)"<<endl;
     }
+    cout << endl<< endl;
     //Fim(Item 4)
 
+    //inicio(Item 5)
+    cout<<"Teriam sido eleitos se a votação fosse majoritária, e não foram eleitos:"<<endl;
+    cout<<"(com sua posição no ranking de mais votados)"<<endl;
+    candidatos *Teriam_nao_eleitos= NULL;
+    Teriam_nao_eleitos= candidatos::candidatosMaisVotados(*cand, Numero_eleitos);
+    i=0;
+    listaAux = candidatos::getLista(Teriam_eleitos);
+    for (it = listaAux.begin();it != listaAux.end(); ++it, i++) {
+        if( i > Numero_eleitos && candidato::getSituacao(*it)==1) {
+            cout << i << " - ";
+            cout << candidato::getNome(*it) << " / ";
+            cout << candidato::getNome_urna(*it) << "(";
+            cout << "colocar nome partido" << ", ";
+            cout << candidato::getVotos_nominais(*it) << " votos)" << endl;
+        }
+    }
+    //Fim(Item 5)
     //Inicio (Item 6)
     cout << endl;
     cout << "Votação dos partidos e número de candidatos eleitos:" << endl;
