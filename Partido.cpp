@@ -13,7 +13,8 @@ Partido::Partido(string num_part, string votos_leg, string nome_part, string sig
     
     list<candidato*>::iterator it = this->cands.begin();;
     for(int i=0; i < this->cands.size(); i++, it++)
-        this->votos_nome += candidato::getVotos_nominais(*it);
+        if(!candidato::getDestino_voto(*it).compare("Válido"))
+            this->votos_nome += candidato::getVotos_nominais(*it);
 }
 void Partido::setNum_partido(int num_partido){
     this->num_partido = num_partido;

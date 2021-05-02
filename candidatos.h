@@ -60,6 +60,8 @@ public:
     //parametro de entrada: a lista de candidato;
 
     static int qtd_candidatos(candidatos& c);
+    static int qtdHomens(candidatos* c);
+    static int qtdMulheres(candidatos* c);
     static candidato* getCandidato(candidatos& c, int n);
     static bool getMaisVotado(candidato* A, candidato* B);
     static bool getMenosVotado(candidato* A, candidato* B);

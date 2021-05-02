@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <algorithm>
+#include <iomanip>
 #include "Arquivo.h"
 #include "Partidos.h"
 using namespace std;
@@ -32,7 +33,6 @@ int main(int argc, char** argv) {
         i++;
     }
     candidatos *cand = new candidatos(texto, i);
-    
     Partidos* parts = new Partidos(arquivo_Part.arquivo, *cand);
     
     //Inicio (Item 1)
@@ -174,6 +174,28 @@ int main(int argc, char** argv) {
             cout << candidato::getVotos_nominais(aux2) << " voto)";
     }
     //Fim (Item 7)
+    
+    //Inicio (Item 8)
+    
+    //Fim (Item 8)
+    
+    cout << fixed << setprecision(2);
+    //Inicio (Item 9)
+    int masculino = candidatos::qtdHomens(eleitos);
+    int femenino = candidatos::qtdMulheres(eleitos);
+    cout << "\n\nEleitos, por sexo:";
+    cout << "\nFeminino: "  << femenino  << " (" << (femenino*100.0/(masculino+femenino)) << "%)";
+    cout << "\nMasculino: " << masculino << " (" << (masculino*100.0/(masculino+femenino)) << "%)";
+    //Fim (Item 9)
+    
+    //Inicio (Item 10)
+    int nominais = Partidos::VotosNome(*parts);
+    int legenda  = Partidos::VotosLeg(*parts);
+    int validos  = nominais+legenda;
+    cout << "\n\nTotal de votos válidos: "    << validos;
+    cout << "\nTotal de votos nominais: "   << nominais << " (" << (nominais*100.0/validos) << "%)";
+    cout << "\nTotal de votos de Legenda: " << legenda  << " (" << (legenda*100.0/validos)  << "%)";
+    //Fim (Item 10)
     
     arquivo_Cand.fechar();
     arquivo_Part.fechar();

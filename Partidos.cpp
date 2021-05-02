@@ -48,6 +48,28 @@ Partido* Partidos::getPartido(Partidos& p, candidato* c){
     return NULL;
 }
 
+int Partidos::VotosNome(Partidos& p){
+    list<Partido*> :: iterator it = p.lista.begin();
+    int result = 0;
+    
+    for(int i=0; i<p.lista.size(); i++, it++){
+        Partido* aux = *it;
+        result += aux->getVotos_nome();
+    }
+    return result;
+}
+
+int Partidos::VotosLeg(Partidos& p){
+    list<Partido*> :: iterator it = p.lista.begin();
+    int result = 0;
+    
+    for(int i=0; i<p.lista.size(); i++, it++){
+        Partido* aux = *it;
+        result += aux->getVotos_leg();
+    }
+    return result;
+}
+
 void Partidos::organizaPartidos(Partidos& p){
     p.lista.sort(Partidos::comparaVotos);
 }

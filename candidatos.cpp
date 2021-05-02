@@ -185,6 +185,26 @@ int candidatos::qtd_candidatos(candidatos& c){
     return c.lista.size();
 }
 
+int candidatos::qtdHomens(candidatos *c){
+    list<candidato*> ::iterator it =  c->lista.begin();
+    int cont =0;
+    
+    for(int i=0; i<c->lista.size(); i++, it++)
+        if(!candidato::getSexo(*it).compare("M"))
+            cont++;
+    return cont;
+}
+
+int candidatos::qtdMulheres(candidatos* c){
+    list<candidato*> ::iterator it =  c->lista.begin();
+    int cont =0;
+    
+    for(int i=0; i<c->lista.size(); i++, it++)
+        if(!candidato::getSexo(*it).compare("F"))
+            cont++;
+    return cont;
+}
+
 candidato* candidatos::getCandidato(candidatos& c, int n){
     int i=0;
     

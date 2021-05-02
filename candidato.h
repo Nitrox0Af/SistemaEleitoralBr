@@ -37,6 +37,6 @@ public:
     static string getNome_urna(candidato* c); //retorna nome de urna do candidato
     static string getSexo(candidato* c); // retorna sexo do candidato
     static string getData_nasc(candidato* c); // retorna string da idade do candidato
-    static string getDestino_voto(candidato* c); // retirna o destino do voto
+    static string getDestino_voto(candidato* c); // retorna o destino do voto
     static int getNumero_partido(candidato* c);//Retorna o numero do partido
 };
