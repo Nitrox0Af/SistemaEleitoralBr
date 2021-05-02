@@ -29,12 +29,23 @@ int Partidos::qtd_partidos(Partidos& p){
     return p.lista.size();
 }
 
-Partido* Partidos::getPartido(Partidos& p, int n){
+Partido* Partidos::getPartido(Partidos& p, int pos){
     list <Partido*> :: iterator it =p.lista.begin();
     
-    for(int i=0; i<n-1; i++, it++);
+    for(int i=0; i<pos-1; i++, it++);
     
     return *it;
+}
+Partido* Partidos::getPartido(Partidos& p, candidato* c){
+    list <Partido*> :: iterator it =p.lista.begin();
+    int num_part = candidato::getNumero_partido(c);
+    
+    for(int i=0; i<p.lista.size(); i++, it++){
+        Partido* aux = *it;
+        if(aux->getNum_partido() == num_part)
+            return aux;
+    }
+    return NULL;
 }
 
 void Partidos::organizaPartidos(Partidos& p){

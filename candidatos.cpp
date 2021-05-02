@@ -193,3 +193,24 @@ candidato* candidatos::getCandidato(candidatos& c, int n){
     
     return *it;
 }
+
+bool candidatos::getMaisVotado(candidato* A, candidato* B){
+    int votosA = candidato::getVotos_nominais(A);
+    int votosB = candidato::getVotos_nominais(B);
+    if (votosA > votosB)
+       return true;
+    else if(votosA == votosB)
+        if(candidato::getNumero_candidato(A)<candidato::getNumero_candidato(B))
+            return true;
+    return false;
+}
+bool candidatos::getMenosVotado(candidato* A, candidato* B){
+    int votosA = candidato::getVotos_nominais(A);
+    int votosB = candidato::getVotos_nominais(B);
+    if (votosA < votosB)
+       return true;
+    else if(votosA == votosB)
+        if(candidato::getNumero_candidato(A)<candidato::getNumero_candidato(B))
+            return true;
+    return false;
+}

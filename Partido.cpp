@@ -56,7 +56,10 @@ int Partido::getQtd_eleitos(){
     return cont;
 }
 candidato* Partido::getMaisVotado(){
+    this->cands.sort(candidatos::getMaisVotado);
+    return this->cands.front();
 }
 candidato* Partido::getMenosVotado(){
-    
+    this->cands.sort(candidatos::getMenosVotado);
+    return this->cands.front();
 }

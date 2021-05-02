@@ -119,33 +119,60 @@ int main(int argc, char** argv) {
         Partido* aux = Partidos::getPartido(*ordenado, i+1);
         cout << endl << (i+1) << " - " << aux->getSigla_part() << " - " << aux->getNum_partido() << ", " ;
         
-        if((aux->getVotos_leg() + aux->getVotos_nome()) < 2)
-            cout << (aux->getVotos_leg() + aux->getVotos_nome()) << " voto (";
-        else
+        if((aux->getVotos_leg() + aux->getVotos_nome()) > 1)
             cout << (aux->getVotos_leg() + aux->getVotos_nome()) << " votos (";
-        
-        if(aux->getVotos_nome() < 2)
-            cout << aux->getVotos_nome() << " nominal e " << aux->getVotos_leg() << " de legenda), ";
         else
+            cout << (aux->getVotos_leg() + aux->getVotos_nome()) << " voto (";
+        
+        if(aux->getVotos_nome() > 1)
             cout << aux->getVotos_nome() << " nominais e " << aux->getVotos_leg() << " de legenda), ";
-        
-        if(aux->getQtd_eleitos() < 2)
-            cout << aux->getQtd_eleitos() << " candidato eleito";
         else
+            cout << aux->getVotos_nome() << " nominal e " << aux->getVotos_leg() << " de legenda), ";
+        
+        if(aux->getQtd_eleitos() > 1)
             cout << aux->getQtd_eleitos() << " candidatos eleitos";
+        else
+            cout << aux->getQtd_eleitos() << " candidato eleito";
     }
     //Fim (Item 6)
     
     //Inicio (Item 7)
     cout << "\n\n" << "Primeiro e último colocados de cada partido:";
-    candidato** c = new candidato*[Partidos::qtd_partidos(*parts)];
+    list<candidato*> maisVotado;
+    list<candidato*> menosVotado;
     for(int i=0; i< Partidos::qtd_partidos(*parts); i++){
         Partido* aux = Partidos::getPartido(*parts, i+1);
-        c[i] = new candidato[2];
-        c[i][0] = *aux->getMaisVotado();
-        c[i][1] = *aux->getMenosVotado();
+        if(aux->getVotos_leg()==0)
+            continue;
+        maisVotado.insert(++maisVotado.begin(), aux->getMaisVotado());
+        menosVotado.insert(++menosVotado.begin(), aux->getMenosVotado());
     }
-    delete[] c;
+    maisVotado.sort(candidatos::getMaisVotado);
+    for(int i=0; maisVotado.front(); i++, maisVotado.pop_front()){
+        candidato* aux = maisVotado.front();
+        string sigla = Partidos::getPartido(*parts, aux)->getSigla_part();
+        int num_part = Partidos::getPartido(*parts, aux)->getNum_partido();
+        
+        cout << endl << (i+1) << " - " << sigla << " - " << num_part << ", ";
+        
+        //mais votado
+        cout << candidato::getNome_urna(aux) << " ("<< candidato::getNumero_candidato(aux) << ", ";
+        if(candidato::getVotos_nominais(aux) > 1)
+            cout << candidato::getVotos_nominais(aux) << " votos) / ";
+        else
+            cout << candidato::getVotos_nominais(aux) << " voto) / ";
+        //menos votado
+        list<candidato*> :: iterator it = menosVotado.begin();
+        candidato* aux2;
+        for(int i=0; i<menosVotado.size(); i++, it++)
+            if(candidato::getNumero_partido(*it) == num_part)
+               aux2 = *it;
+        cout << candidato::getNome_urna(aux2) << " ("<< candidato::getNumero_candidato(aux2) << ", ";
+        if(candidato::getVotos_nominais(aux2) > 1)
+            cout << candidato::getVotos_nominais(aux2) << " votos)";
+        else
+            cout << candidato::getVotos_nominais(aux2) << " voto)";
+    }
     //Fim (Item 7)
     
     arquivo_Cand.fechar();

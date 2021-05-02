@@ -61,4 +61,6 @@ public:
 
     static int qtd_candidatos(candidatos& c);
     static candidato* getCandidato(candidatos& c, int n);
+    static bool getMaisVotado(candidato* A, candidato* B);
+    static bool getMenosVotado(candidato* A, candidato* B);
 };
