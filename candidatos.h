@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <iterator>
+#include <ctime>
 
 using namespace std;
 
@@ -65,4 +66,5 @@ public:
     static candidato* getCandidato(candidatos& c, int n);
     static bool getMaisVotado(candidato* A, candidato* B);
     static bool getMenosVotado(candidato* A, candidato* B);
+    static vector<int>  getIdades(string data, candidatos& c);
 };

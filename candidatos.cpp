@@ -1,3 +1,6 @@
+#include <chrono>
+#include <complex>
+
 #include "candidatos.h"
 
 vector<int> Retorna_data(string s);
@@ -19,6 +22,8 @@ candidatos::candidatos(string *texto, int n) {
     string *info;
     for (int i = 0; i < n; i++) {
         info = entrada(texto[i]);
+        if(info[7].compare("Válido")!=0)
+            continue;
         lista.push_front(new candidato(info));
         delete[] info;
     }
@@ -230,7 +235,36 @@ bool candidatos::getMenosVotado(candidato* A, candidato* B){
     if (votosA < votosB)
        return true;
     else if(votosA == votosB)
-        if(candidato::getNumero_candidato(A)<candidato::getNumero_candidato(B))
+        if(organizar_por_idade(A, B))
             return true;
     return false;
+}
+
+vector<int> candidatos::getIdades(string data, candidatos& c){
+    time_t novo;
+    struct tm dataA; 
+    struct tm dataB;
+    
+    time(&novo);
+    
+    dataA = *localtime(&novo);
+    dataB = *localtime(&novo);
+    
+    vector<int> num1 = Retorna_data(data);
+    vector<int> idades;
+    dataA.tm_mday = num1[0];
+    dataA.tm_mon  = num1[1];
+    dataA.tm_year = num1[2];
+    list<candidato*> :: iterator it = c.lista.begin();
+    for(int i=0;i<c.lista.size();i++, it++){
+        vector<int> num2 = Retorna_data(candidato::getData_nasc(*it));
+        dataB.tm_mday = num2[0];
+        dataB.tm_mon  = num2[1];
+        dataB.tm_year = num2[2];
+        double diferenca = difftime(mktime(&dataA),mktime(&dataB));
+        int idade = diferenca* 3.1688 * pow(10, -8);
+        //cout << endl << idade;
+        idades.push_back(idade);
+    }
+    return idades;
 }
