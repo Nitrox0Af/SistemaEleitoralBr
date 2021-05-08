@@ -12,7 +12,7 @@ using namespace chrono;
 int main(int argc, char** argv) {
     string arq_nomeCand = "candidatos.csv";
     string arq_nomePart = "partidos.csv";
-    string data = "15/05/2000";
+    string data = argv[3];
 
 
     Arquivo arquivo_Cand = Arquivo(arq_nomeCand);
@@ -205,11 +205,11 @@ int main(int argc, char** argv) {
         else if (*idade >= 60)
             aux[4] = aux[4] + 1;
     }
-    saida << "\nIdade < 30: " << aux[0];
-    saida << "\n30 <= Idade < 40: " << aux[1];
-    saida << "\n40 <= Idade < 50: " << aux[2];
-    saida << "\n50 <= Idade < 60: " << aux[3];
-    saida << "\n0 <= Idade     : " << aux[4];
+    saida << "\n      Idade < 30: " << aux[0] << " (" << (aux[0] * 100.0 / (aux[0]+aux[1]+aux[2]+aux[3]+aux[4])) <<"%)";
+    saida << "\n30 <= Idade < 40: " << aux[1] << " (" << (aux[1] * 100.0 / (aux[0]+aux[1]+aux[2]+aux[3]+aux[4])) <<"%)";
+    saida << "\n40 <= Idade < 50: " << aux[2] << " (" << (aux[2] * 100.0 / (aux[0]+aux[1]+aux[2]+aux[3]+aux[4])) <<"%)";
+    saida << "\n50 <= Idade < 60: " << aux[3] << " (" << (aux[3] * 100.0 / (aux[0]+aux[1]+aux[2]+aux[3]+aux[4])) <<"%)";
+    saida << "\n60 <= Idade     : " << aux[4] << " (" << (aux[4] * 100.0 / (aux[0]+aux[1]+aux[2]+aux[3]+aux[4])) <<"%)";
     //Fim (Item 8)
 
     //Inicio (Item 9)

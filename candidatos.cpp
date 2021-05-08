@@ -263,7 +263,6 @@ vector<int> candidatos::getIdades(string data, candidatos& c){
         dataB.tm_year = num2[2];
         double diferenca = difftime(mktime(&dataA),mktime(&dataB));
         int idade = diferenca* 3.1688 * pow(10, -8);
-        //cout << endl << idade;
         idades.push_back(idade);
     }
     return idades;
