@@ -5,6 +5,8 @@
 #include <chrono>
 #include "Arquivo.h"
 #include "Partidos.h"
+#include <locale>
+#include <locale.h>
 
 using namespace std;
 using namespace chrono;
@@ -13,8 +15,7 @@ int main(int argc, char** argv) {
     string arq_nomeCand = "candidatos.csv";
     string arq_nomePart = "partidos.csv";
     string data = argv[3];
-
-
+    
     Arquivo arquivo_Cand = Arquivo(arq_nomeCand);
     if (!arquivo_Cand.arquivo.is_open()) {
         cout << "\nNão foi possivel abrir o arquivo: " << arq_nomeCand << endl;
@@ -25,11 +26,7 @@ int main(int argc, char** argv) {
         cout << "\nNão foi possivel abrir o arquivo: " << arq_nomePart << endl;
         return 0;
     }
-
-    ofstream saida;
-
-    saida.open("output.txt");
-
+    
     string line;
     string texto[2000];
     int i = 0;
@@ -43,45 +40,45 @@ int main(int argc, char** argv) {
 
     //Inicio (Item 1)
     int Numero_eleitos = candidatos::num_eleitos(*cand);
-    saida << "Número de vagas: " << Numero_eleitos << endl << endl;
+    cout << "Número de vagas: " << Numero_eleitos << endl << endl;
     // Fim (Item 1)
 
     // inicio(Item2)
     candidatos *eleitos = NULL;
     eleitos = candidatos::getCandidatosEleitos(*cand);
-    saida << "Vereadores eleitos:" << endl;
+    cout << "Vereadores eleitos:" << endl;
     i = 1;
     list<candidato *>::iterator it;
     list<candidato *> listaAux = candidatos::getLista(eleitos);
     for (it = listaAux.begin(); it != listaAux.end(); ++it, i++) {
-        saida << i << " - ";
-        saida << candidato::getNome(*it) << " / ";
-        saida << candidato::getNome_urna(*it) << " (";
-        saida << Partidos::getPartido(*parts, *it)->getSigla_part() << ", ";
-        saida << candidato::getVotos_nominais(*it) << " votos)" << endl;
+        cout << i << " - ";
+        cout << candidato::getNome(*it) << " / ";
+        cout << candidato::getNome_urna(*it) << " (";
+        cout << Partidos::getPartido(*parts, *it)->getSigla_part() << ", ";
+        cout << candidato::getVotos_nominais(*it) << " votos)" << endl;
     }
-    saida << endl;
+    cout << endl;
     //Fim(Item 2)
 
     //inicio(Item3)
-    saida << "Candidatos mais votados (em ordem decrescente de votação e respeitando número de vagas):" << endl;
+    cout << "Candidatos mais votados (em ordem decrescente de votação e respeitando número de vagas):" << endl;
     candidatos *maisVotados = NULL;
     maisVotados = candidatos::candidatosMaisVotados(*cand);
     i = 1;
     listaAux = candidatos::getLista(maisVotados);
     for (it = listaAux.begin(); i <= Numero_eleitos; ++it, i++) {
-        saida << i << " - ";
-        saida << candidato::getNome(*it) << " / ";
-        saida << candidato::getNome_urna(*it) << " (";
-        saida << Partidos::getPartido(*parts, *it)->getSigla_part() << ", ";
-        saida << candidato::getVotos_nominais(*it) << " votos)" << endl;
+        cout << i << " - ";
+        cout << candidato::getNome(*it) << " / ";
+        cout << candidato::getNome_urna(*it) << " (";
+        cout << Partidos::getPartido(*parts, *it)->getSigla_part() << ", ";
+        cout << candidato::getVotos_nominais(*it) << " votos)" << endl;
     }
-    saida << endl;
+    cout << endl;
     //Fim(Item 3)
 
     //inicio(Item4)
-    saida << "Teriam sido eleitos se a votação fosse majoritária, e não foram eleitos:" << endl;
-    saida << "(com sua posição no ranking de mais votados)" << endl;
+    cout << "Teriam sido eleitos se a votação fosse majoritária, e não foram eleitos:" << endl;
+    cout << "(com sua posição no ranking de mais votados)" << endl;
     candidatos *Teriam_eleitos = NULL;
     Teriam_eleitos = candidatos::candidatosMaisVotados(*cand);
     i = 1;
@@ -90,60 +87,60 @@ int main(int argc, char** argv) {
         if (candidato::getSituacao(*it) == 1) {
             continue;
         }
-        saida << i << " - ";
-        saida << candidato::getNome(*it) << " / ";
-        saida << candidato::getNome_urna(*it) << " (";
-        saida << Partidos::getPartido(*parts, *it)->getSigla_part() << ", ";
-        saida << candidato::getVotos_nominais(*it) << " votos)" << endl;
+        cout << i << " - ";
+        cout << candidato::getNome(*it) << " / ";
+        cout << candidato::getNome_urna(*it) << " (";
+        cout << Partidos::getPartido(*parts, *it)->getSigla_part() << ", ";
+        cout << candidato::getVotos_nominais(*it) << " votos)" << endl;
     }
-    saida << endl;
+    cout << endl;
     //Fim(Item 4)
 
     //inicio(Item 5)
-    saida << "Eleitos, que se beneficiaram do sistema proporcional:" << endl;
-    saida << "(com sua posição no ranking de mais votados)" << endl;
+    cout << "Eleitos, que se beneficiaram do sistema proporcional:" << endl;
+    cout << "(com sua posição no ranking de mais votados)" << endl;
     candidatos *Teriam_nao_eleitos = NULL;
     Teriam_nao_eleitos = candidatos::candidatosMaisVotados(*cand);
     i = 1;
     listaAux = candidatos::getLista(Teriam_eleitos);
     for (it = listaAux.begin(); it != listaAux.end(); ++it, i++) {
         if (i > Numero_eleitos && candidato::getSituacao(*it) == 1) {
-            saida << i << " - ";
-            saida << candidato::getNome(*it) << " / ";
-            saida << candidato::getNome_urna(*it) << " (";
-            saida << Partidos::getPartido(*parts, *it)->getSigla_part() << ", ";
-            saida << candidato::getVotos_nominais(*it) << " votos)" << endl;
+            cout << i << " - ";
+            cout << candidato::getNome(*it) << " / ";
+            cout << candidato::getNome_urna(*it) << " (";
+            cout << Partidos::getPartido(*parts, *it)->getSigla_part() << ", ";
+            cout << candidato::getVotos_nominais(*it) << " votos)" << endl;
         }
     }
     //Fim(Item 5)
 
     //Inicio (Item 6)
-    saida << "\nVotação dos partidos e número de candidatos eleitos:";
+    cout << "\nVotação dos partidos e número de candidatos eleitos:";
     Partidos* ordenado = parts;
     Partidos::organizaPartidos(*ordenado);
     for (int i = 0; i < Partidos::qtd_partidos(*ordenado); i++) {
         Partido* aux = Partidos::getPartido(*ordenado, i + 1);
-        saida << endl << (i + 1) << " - " << aux->getSigla_part() << " - " << aux->getNum_partido() << ", ";
+        cout << endl << (i + 1) << " - " << aux->getSigla_part() << " - " << aux->getNum_partido() << ", ";
 
         if ((aux->getVotos_leg() + aux->getVotos_nome()) > 1)
-            saida << (aux->getVotos_leg() + aux->getVotos_nome()) << " votos (";
+            cout << (aux->getVotos_leg() + aux->getVotos_nome()) << " votos (";
         else
-            saida << (aux->getVotos_leg() + aux->getVotos_nome()) << " voto (";
+            cout << (aux->getVotos_leg() + aux->getVotos_nome()) << " voto (";
 
         if (aux->getVotos_nome() > 1)
-            saida << aux->getVotos_nome() << " nominais e " << aux->getVotos_leg() << " de legenda), ";
+            cout << aux->getVotos_nome() << " nominais e " << aux->getVotos_leg() << " de legenda), ";
         else
-            saida << aux->getVotos_nome() << " nominal e " << aux->getVotos_leg() << " de legenda), ";
+            cout << aux->getVotos_nome() << " nominal e " << aux->getVotos_leg() << " de legenda), ";
 
         if (aux->getQtd_eleitos() > 1)
-            saida << aux->getQtd_eleitos() << " candidatos eleitos";
+            cout << aux->getQtd_eleitos() << " candidatos eleitos";
         else
-            saida << aux->getQtd_eleitos() << " candidato eleito";
+            cout << aux->getQtd_eleitos() << " candidato eleito";
     }
     //Fim (Item 6)
 
     //Inicio (Item 7)
-    saida << "\n\n" << "Primeiro e último colocados de cada partido:";
+    cout << "\n\n" << "Primeiro e último colocados de cada partido:";
     list<candidato*> maisVotado;
     list<candidato*> menosVotado;
     for (int i = 0; i < Partidos::qtd_partidos(*parts); i++) {
@@ -159,32 +156,32 @@ int main(int argc, char** argv) {
         string sigla = Partidos::getPartido(*parts, aux)->getSigla_part();
         int num_part = Partidos::getPartido(*parts, aux)->getNum_partido();
 
-        saida << endl << (i + 1) << " - " << sigla << " - " << num_part << ", ";
+        cout << endl << (i + 1) << " - " << sigla << " - " << num_part << ", ";
 
         //mais votado
-        saida << candidato::getNome_urna(aux) << " (" << candidato::getNumero_candidato(aux) << ", ";
+        cout << candidato::getNome_urna(aux) << " (" << candidato::getNumero_candidato(aux) << ", ";
         if (candidato::getVotos_nominais(aux) > 1)
-            saida << candidato::getVotos_nominais(aux) << " votos) / ";
+            cout << candidato::getVotos_nominais(aux) << " votos) / ";
         else
-            saida << candidato::getVotos_nominais(aux) << " voto) / ";
+            cout << candidato::getVotos_nominais(aux) << " voto) / ";
         //menos votado
         list<candidato*> ::iterator it = menosVotado.begin();
         candidato* aux2;
         for (int i = 0; i < menosVotado.size(); i++, it++)
             if (candidato::getNumero_partido(*it) == num_part)
                 aux2 = *it;
-        saida << candidato::getNome_urna(aux2) << " (" << candidato::getNumero_candidato(aux2) << ", ";
+        cout << candidato::getNome_urna(aux2) << " (" << candidato::getNumero_candidato(aux2) << ", ";
         if (candidato::getVotos_nominais(aux2) > 1)
-            saida << candidato::getVotos_nominais(aux2) << " votos)";
+            cout << candidato::getVotos_nominais(aux2) << " votos)";
         else
-            saida << candidato::getVotos_nominais(aux2) << " voto)";
+            cout << candidato::getVotos_nominais(aux2) << " voto)";
     }
     //Fim (Item 7)
 
-    saida << fixed << setprecision(2);
+    cout << fixed << setprecision(2);
 
     //Inicio (Item 8)
-    saida << "\n\nEleitos, por faixa etária (na data da eleição):";
+    cout << "\n\nEleitos, por faixa etária (na data da eleição):";
     int aux[5];
     aux[0] = 0;
     aux[1] = 0;
@@ -205,34 +202,73 @@ int main(int argc, char** argv) {
         else if (*idade >= 60)
             aux[4] = aux[4] + 1;
     }
-    saida << "\n      Idade < 30: " << aux[0] << " (" << (aux[0] * 100.0 / (aux[0]+aux[1]+aux[2]+aux[3]+aux[4])) <<"%)";
-    saida << "\n30 <= Idade < 40: " << aux[1] << " (" << (aux[1] * 100.0 / (aux[0]+aux[1]+aux[2]+aux[3]+aux[4])) <<"%)";
-    saida << "\n40 <= Idade < 50: " << aux[2] << " (" << (aux[2] * 100.0 / (aux[0]+aux[1]+aux[2]+aux[3]+aux[4])) <<"%)";
-    saida << "\n50 <= Idade < 60: " << aux[3] << " (" << (aux[3] * 100.0 / (aux[0]+aux[1]+aux[2]+aux[3]+aux[4])) <<"%)";
-    saida << "\n60 <= Idade     : " << aux[4] << " (" << (aux[4] * 100.0 / (aux[0]+aux[1]+aux[2]+aux[3]+aux[4])) <<"%)";
+    cout << "\n      Idade < 30: " << aux[0] << " (";
+    cout.imbue(locale("pt_BR.utf8"));
+    cout << (aux[0] * 100.0 / (aux[0]+aux[1]+aux[2]+aux[3]+aux[4])) <<"%)";
+    cout.imbue(locale("C"));
+    
+    cout << "\n30 <= Idade < 40: " << aux[1] << " (";
+    cout.imbue(locale("pt_BR.utf8"));
+    cout << (aux[1] * 100.0 / (aux[0]+aux[1]+aux[2]+aux[3]+aux[4])) <<"%)";
+    cout.imbue(locale("C"));
+    
+    cout << "\n40 <= Idade < 50: " << aux[2] << " (";
+    cout.imbue(locale("pt_BR.utf8"));
+    cout << (aux[2] * 100.0 / (aux[0]+aux[1]+aux[2]+aux[3]+aux[4])) <<"%)";
+    cout.imbue(locale("C"));
+    
+    cout << "\n50 <= Idade < 60: " << aux[3] << " (";
+    cout.imbue(locale("pt_BR.utf8"));
+    cout << (aux[3] * 100.0 / (aux[0]+aux[1]+aux[2]+aux[3]+aux[4])) <<"%)";
+    cout.imbue(locale("C"));
+    
+    
+    cout << "\n60 <= Idade     : " << aux[4] << " (";
+    cout.imbue(locale("pt_BR.utf8"));
+    cout << (aux[4] * 100.0 / (aux[0]+aux[1]+aux[2]+aux[3]+aux[4])) <<"%)";
+    cout.imbue(locale("C"));
     //Fim (Item 8)
-
+    
     //Inicio (Item 9)
     int masculino = candidatos::qtdHomens(eleitos);
     int femenino = candidatos::qtdMulheres(eleitos);
-    saida << "\n\nEleitos, por sexo:";
+    cout << "\n\nEleitos, por sexo:";
 
-    saida << "\nFeminino: " << femenino << " (" << (femenino * 100.0 / (masculino + femenino)) << "%)";
-    saida << "\nMasculino: " << masculino << " (" << (masculino * 100.0 / (masculino + femenino)) << "%)";
+    cout << "\nFeminino:  " << femenino << " (";
+    
+    cout.imbue(locale("pt_BR.utf8"));
+    cout << (femenino * 100.0 / (masculino + femenino)) << "%)";
+    cout.imbue(locale("C"));
+    
+    cout << "\nMasculino: " << masculino << " (";
+    
+    cout.imbue(locale("pt_BR.utf8"));
+    cout << (masculino * 100.0 / (masculino + femenino)) << "%)";
+    cout.imbue(locale("C"));
     //Fim (Item 9)
-
+    
     //Inicio (Item 10)
     int nominais = Partidos::VotosNome(*parts);
     int legenda = Partidos::VotosLeg(*parts);
     int validos = nominais + legenda;
-    saida << "\n\nTotal de votos válidos:    " << validos;
-    saida << "\nTotal de votos nominais:   " << nominais << " (" << (nominais * 100.0 / validos) << "%)";
-    saida << "\nTotal de votos de Legenda: " << legenda << " (" << (legenda * 100.0 / validos) << "%)";
+    cout << "\n\nTotal de votos válidos:    " << validos;
+    cout << "\nTotal de votos nominais:   " << nominais << " (";
+    
+    cout.imbue(locale("pt_BR.utf8"));
+    cout << (nominais * 100.0 / validos) << "%)";
+    cout.imbue(locale("C"));
+    
+    cout << "\nTotal de votos de Legenda: " << legenda << " (";
+    
+    cout.imbue(locale("pt_BR.utf8"));
+    cout << (legenda * 100.0 / validos) << "%)";
+    cout.imbue(locale("C"));    
     //Fim (Item 10)
-    saida << "\n";
+    
+    cout << endl << endl;
+    
     arquivo_Cand.fechar();
     arquivo_Part.fechar();
-    saida.close();
     delete cand;
     delete parts;
     delete eleitos;
