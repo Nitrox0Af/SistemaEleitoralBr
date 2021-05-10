@@ -21,8 +21,8 @@ public:
     //construtor default
     
     static Partido* getPartido(Partidos& p, int pos);       //retorna o partido da lista de acordo com sua posição na lista
-    static Partido* getPartido(Partidos& p, candidato* c);  //retorna o partido deacordo com o numero de partido do candidato
-    static int qtd_partidos(Partidos& p);                   //retorna a quantidade de partidos da lista de patidos passada como parametro
+    static Partido* getPartido(Partidos& p, const candidato* c);  //retorna o partido deacordo com o numero de partido do candidato
+    static int qtd_partidos(Partidos* p);                   //retorna a quantidade de partidos da lista de patidos passada como parametro
     static int VotosNome(Partidos& p);                      //retorna a quantidade de votos nominais de todos os partidos
     static int VotosLeg(Partidos& p);                       //retorna a quantidade de votos de legenda de todos os partidos
     static void organizaPartidos(Partidos& p);              //organiza a lista de partidos pela ordem dos mais votados

@@ -29,8 +29,8 @@ string* split(string s){
     return texto;
 }
 
-int Partidos::qtd_partidos(Partidos& p){
-    return p.lista.size();
+int Partidos::qtd_partidos(Partidos* p){
+    return p->lista.size();
 }
 
 Partido* Partidos::getPartido(Partidos& p, int pos){
@@ -40,8 +40,8 @@ Partido* Partidos::getPartido(Partidos& p, int pos){
     
     return *it;
 }
-Partido* Partidos::getPartido(Partidos& p, candidato* c){
-    list <Partido*> :: iterator it =p.lista.begin();
+Partido* Partidos::getPartido(Partidos& p, const candidato* c){
+    list <Partido*> :: iterator it = p.lista.begin();
     int num_part = candidato::getNumero_partido(c);
     
     int tam = p.lista.size();

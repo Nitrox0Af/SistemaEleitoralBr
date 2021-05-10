@@ -118,7 +118,7 @@ int main(int argc, char** argv) {
     cout << "\nVotação dos partidos e número de candidatos eleitos:";
     Partidos* ordenado = parts;
     Partidos::organizaPartidos(*ordenado);
-    for (int i = 0; i < Partidos::qtd_partidos(*ordenado); i++) {
+    for (int i = 0; i < Partidos::qtd_partidos(ordenado); i++) {
         Partido* aux = Partidos::getPartido(*ordenado, i + 1);
         cout << endl << (i + 1) << " - " << aux->getSigla_part() << " - " << aux->getNum_partido() << ", ";
         if ((aux->getVotos_leg() + aux->getVotos_nome()) > 1)
@@ -141,7 +141,7 @@ int main(int argc, char** argv) {
     cout << "\n\n" << "Primeiro e último colocados de cada partido:";
     list<candidato*> maisVotado;
     list<candidato*> menosVotado;
-    for (int i = 0; i < Partidos::qtd_partidos(*parts); i++) {
+    for (int i = 0; i < Partidos::qtd_partidos(parts); i++) {
         Partido* aux = Partidos::getPartido(*parts, i + 1);
         if (aux->getVotos_leg() == 0)
             continue;
