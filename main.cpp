@@ -178,12 +178,10 @@ int main(int argc, char** argv) {
         else
             cout << candidato::getVotos_nominais(aux) << " voto) / ";
         //menos votado
-        list<candidato*> ::iterator it = menosVotado.begin();
         candidato* aux2;
-        int tam = menosVotado.size();
-        for (int i = 0; i < tam; i++, it++)
-            if (candidato::getNumero_partido(*it) == num_part)
-                aux2 = *it;
+        for (auto it : menosVotado)
+            if (candidato::getNumero_partido(it) == num_part)
+                aux2 = it;
         cout << candidato::getNome_urna(aux2) << " (" << candidato::getNumero_candidato(aux2) << ", ";
         if (candidato::getVotos_nominais(aux2) > 1)
             cout << candidato::getVotos_nominais(aux2) << " votos)";
@@ -202,19 +200,17 @@ int main(int argc, char** argv) {
     aux[2] = 0;
     aux[3] = 0;
     aux[4] = 0;
-    vector<int> idades = candidatos::getIdades(data, *eleitos);
-    vector<int> ::iterator idade = idades.begin();
-    int tam = idades.size();
-    for (int i = 0; i < tam; i++, idade++) {
-        if (*idade < 30)
+    vector<int> idades = candidatos::getIdades(data, eleitos);
+    for (auto idade : idades) {
+        if (idade < 30)
             aux[0] = aux[0] + 1;
-        else if (*idade < 40)
+        else if (idade < 40)
             aux[1] = aux[1] + 1;
-        else if (*idade < 50)
+        else if (idade < 50)
             aux[2] = aux[2] + 1;
-        else if (*idade < 60)
+        else if (idade < 60)
             aux[3] = aux[3] + 1;
-        else if (*idade >= 60)
+        else if (idade >= 60)
             aux[4] = aux[4] + 1;
     }
     cout << "\n      Idade < 30: " << aux[0] << " (";

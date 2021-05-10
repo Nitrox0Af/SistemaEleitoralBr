@@ -8,7 +8,7 @@ Partido::Partido(string num_part, string votos_leg, string nome_part, string sig
     setNome_part(nome_part);
     setSigla_part(sigla_part);  
     
-    for (int i = 0; i < candidatos::qtd_candidatos(*cands); i++)
+    for (int i = 0; i < candidatos::qtd_candidatos(cands); i++)
         if (candidato::getNumero_partido(candidatos::getCandidato(*cands, i+1)) == this->num_partido)
             this->cands.push_front(candidatos::getCandidato(*cands, i+1));
     
@@ -28,19 +28,19 @@ Partido::Partido(){
     this->sigla_part   = "";
 }
 
-void Partido::setNum_partido(int num_partido){
+void Partido::setNum_partido(const int num_partido){
     this->num_partido = num_partido;
 }
-void Partido::setVotos_leg(int votos_leg){
+void Partido::setVotos_leg(const int votos_leg){
     this->votos_leg = votos_leg;
 }
-void Partido::setVotos_nome(int votos_nome){
+void Partido::setVotos_nome(const int votos_nome){
     this->votos_nome = votos_nome;
 }
-void Partido::setNome_part(string nome_part){
+void Partido::setNome_part(const string nome_part){
     this->nome_part = nome_part;
 }
-void Partido::setSigla_part(string sigla_part){
+void Partido::setSigla_part(const string sigla_part){
     this->sigla_part = sigla_part;
 }
 

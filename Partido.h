@@ -15,11 +15,11 @@ public:
     Partido();
     //construtor default
     
-    void setNum_partido(int num_partido);   // seta o numero do partido
-    void setVotos_leg(int votos_leg);       // seta os votos de legenda do partido
-    void setVotos_nome(int votos_nome);     // seta os votos nominais do partido
-    void setNome_part(string nome_part);    // seta o nome do partido
-    void setSigla_part(string sigla_part);  // seta a sigla do partido
+    void setNum_partido(const int num_partido);   // seta o numero do partido
+    void setVotos_leg(const int votos_leg);       // seta os votos de legenda do partido
+    void setVotos_nome(const int votos_nome);     // seta os votos nominais do partido
+    void setNome_part(const string nome_part);    // seta o nome do partido
+    void setSigla_part(const string sigla_part);  // seta a sigla do partido
     
     int         getNum_partido() const;    // retorna o numero do partido
     int         getVotos_leg()   const;    // retorna os votos de legenda do partido

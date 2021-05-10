@@ -187,28 +187,24 @@ string *entrada(string s) {
 }
 
 
-int candidatos::qtd_candidatos(candidatos& c){
-    return c.lista.size();
+int candidatos::qtd_candidatos(const candidatos* c){
+    return c->lista.size();
 }
 
-int candidatos::qtdHomens(candidatos *c){
-    list<candidato*> ::iterator it =  c->lista.begin();
+int candidatos::qtdHomens(const candidatos *c){
     int cont =0;
     
-    int tam = c->lista.size();
-    for(int i=0; i<tam; i++, it++)
-        if(!candidato::getSexo(*it).compare("M"))
+    for(auto it: c->lista)
+        if(!candidato::getSexo(it).compare("M"))
             cont++;
     return cont;
 }
 
-int candidatos::qtdMulheres(candidatos* c){
-    list<candidato*> ::iterator it =  c->lista.begin();
+int candidatos::qtdMulheres(const candidatos* c){
     int cont =0;
     
-    int tam = c->lista.size();
-    for(int i=0; i<tam; i++, it++)
-        if(!candidato::getSexo(*it).compare("F"))
+    for(auto it : c->lista)
+        if(!candidato::getSexo(it).compare("F"))
             cont++;
     return cont;
 }
@@ -232,7 +228,7 @@ bool candidatos::getMaisVotado(candidato* A, candidato* B){
             return true;
     return false;
 }
-bool candidatos::getMenosVotado(candidato* A, candidato* B){
+bool candidatos::getMenosVotado( candidato* A, candidato* B){
     int votosA = candidato::getVotos_nominais(A);
     int votosB = candidato::getVotos_nominais(B);
     if (votosA < votosB)
@@ -243,7 +239,7 @@ bool candidatos::getMenosVotado(candidato* A, candidato* B){
     return false;
 }
 
-vector<int> candidatos::getIdades(string data, candidatos& c){
+vector<int> candidatos::getIdades(const string data, const candidatos* c){
     time_t novo;
     struct tm dataA; 
     struct tm dataB;
@@ -258,10 +254,9 @@ vector<int> candidatos::getIdades(string data, candidatos& c){
     dataA.tm_mday = num1[0];
     dataA.tm_mon  = num1[1];
     dataA.tm_year = num1[2];
-    list<candidato*> :: iterator it = c.lista.begin();
-    int tam = c.lista.size();
-    for(int i=0;i<tam;i++, it++){
-        vector<int> num2 = Retorna_data(candidato::getData_nasc(*it));
+
+    for(auto it : c->lista){
+        vector<int> num2 = Retorna_data(candidato::getData_nasc(it));
         dataB.tm_mday = num2[0];
         dataB.tm_mon  = num2[1];
         dataB.tm_year = num2[2];
