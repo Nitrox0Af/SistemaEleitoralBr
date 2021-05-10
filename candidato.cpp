@@ -40,37 +40,37 @@ candidato& candidato::operator=(const candidato& c){
     return *this;
 }
 
-int candidato::getSituacao(candidato* c){
+int candidato::getSituacao(const candidato* c){
     int i=0;
     if(c->situacao == "Eleito"){
         i++;
     }
     return i;
 }
-int candidato::getNumero_candidato(candidato* c){
+int candidato::getNumero_candidato(const candidato* c){
     return c->numero;
 }
-int candidato::getNumero_partido(candidato* c){
+int candidato::getNumero_partido(const candidato* c){
     return c->numero_partido;
 }
 
-int candidato::getVotos_nominais(candidato* c){
+int candidato::getVotos_nominais(const candidato* c){
     return c->votos_nominais;
 }
-string candidato::getNome(candidato* c){
+string candidato::getNome(const candidato* c){
     return c->nome;
 }
-string candidato::getNome_urna(candidato* c){
+string candidato::getNome_urna(const candidato* c){
     return c->nome_urna;
 }
-string candidato::getSexo(candidato* c){
+string candidato::getSexo(const candidato* c){
     return c->sexo;
 }
 
-string candidato::getData_nasc(candidato* c){
+string candidato::getData_nasc(const candidato* c){
     return c->data_nasc;
 }
 
-string candidato::getDestino_voto(candidato* c){
+string candidato::getDestino_voto(const candidato* c){
     return c->destino_voto;
 }

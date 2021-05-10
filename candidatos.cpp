@@ -19,11 +19,13 @@ candidatos::candidatos() {
 }
 
 candidatos::candidatos(string *texto, int n) {
-    string *info;
+    string *info=NULL;
     for (int i = 0; i < n; i++) {
         info = entrada(texto[i]);
-        if(info[7].compare("Válido")!=0)
+        if(info[7].compare("Válido")!=0) {
+            delete[] info;
             continue;
+        }
         lista.push_front(new candidato(info));
         delete[] info;
     }
@@ -34,9 +36,10 @@ candidatos::~candidatos() {
     candidato *aux;
     while (!lista.empty()) {
         aux = lista.back();
-        lista.pop_back(); /* delete the pointer from the list */
-        delete aux; /* free the allocated memory */
+        lista.pop_back();
+        delete aux;
     }
+    lista.clear();
 }
 
 //operadores:
@@ -44,6 +47,7 @@ candidatos& candidatos::operator=(candidatos &c) {
     if(!this->lista.empty()){
         delete this;
     }
+
     list<candidato*>::iterator it;
     for (it = c.lista.begin(); it != c.lista.end(); ++it) {
         candidato *aux1 = new candidato();
@@ -70,7 +74,7 @@ candidatos* candidatos::getCandidatosEleitos(candidatos &c) {
     return aux;
 }
 
-list<candidato*> candidatos::getLista(candidatos* c){
+list<candidato*> candidatos::getLista(const candidatos* c){
     return c->lista;
 }
 
@@ -85,7 +89,7 @@ int candidatos::num_eleitos(candidatos &c) {
     return i;
 }
 
-int candidatos::organizar_por_idade(candidato* c,candidato* d){
+int candidatos::organizar_por_idade(const candidato* c, const candidato* d){
     candidato *aux;
     string aux1;
     string aux2;

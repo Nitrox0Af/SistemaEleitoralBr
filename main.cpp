@@ -266,7 +266,6 @@ int main(int argc, char** argv) {
     //Fim (Item 10)
     
     cout << endl << endl;
-    
     arquivo_Cand.fechar();
     arquivo_Part.fechar();
     delete cand;

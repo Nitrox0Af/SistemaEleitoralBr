@@ -30,13 +30,13 @@ public:
     //operador de "=" para tipo candidatos
     //copia as informacoes c de para a referencia
 
-    static int getSituacao(candidato* c); // retorna 1 eleito 0 nao eleito
-    static int getNumero_candidato(candidato* c); //retorna numero do candidato
-    static int getVotos_nominais(candidato* c); // retorna quantidade de votos nominais
-    static string getNome(candidato* c); // retorna nome candidato
-    static string getNome_urna(candidato* c); //retorna nome de urna do candidato
-    static string getSexo(candidato* c); // retorna sexo do candidato
-    static string getData_nasc(candidato* c); // retorna string da idade do candidato
-    static string getDestino_voto(candidato* c); // retorna o destino do voto
-    static int getNumero_partido(candidato* c);//Retorna o numero do partido
+    static int getSituacao(const candidato* c); // retorna 1 eleito 0 nao eleito
+    static int getNumero_candidato(const candidato* c); //retorna numero do candidato
+    static int getVotos_nominais(const candidato* c); // retorna quantidade de votos nominais
+    static string getNome(const candidato* c); // retorna nome candidato
+    static string getNome_urna(const candidato* c); //retorna nome de urna do candidato
+    static string getSexo(const candidato* c); // retorna sexo do candidato
+    static string getData_nasc(const candidato* c); // retorna string da idade do candidato
+    static string getDestino_voto(const candidato* c); // retorna o destino do voto
+    static int getNumero_partido(const candidato* c);//Retorna o numero do partido
 };

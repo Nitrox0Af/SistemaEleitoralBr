@@ -35,7 +35,7 @@ public:
     //retorno dos candidatos eleitos, tipo candiatos alocado;
     //parametro de entrada: a lista dos candidatos
 
-    static list<candidato*> getLista(candidatos* c);
+    static list<candidato*> getLista(const candidatos* c);
     //retorno do ponteiro da lista de candidato contida no tipo condidatos;
     //parametro de entrada: a lista dos candidatos
 
@@ -43,7 +43,7 @@ public:
     //retorno do numero de candidatos eleitos;
     //parametro de entrada: a lista dos candidatos
 
-    static int organizar_por_idade(candidato* c,candidato* d);
+    static int organizar_por_idade(const candidato* c,const candidato* d);
     // retorno do numero que representa se candidato c eh ou nao mais velho que candidato d
     //1 para d mais velho e 0 para c mais velho
     //parametro de entrada: candidato denominado c e candidato denominado d
