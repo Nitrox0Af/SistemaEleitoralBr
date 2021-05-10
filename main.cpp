@@ -121,20 +121,19 @@ int main(int argc, char** argv) {
     for (int i = 0; i < Partidos::qtd_partidos(*ordenado); i++) {
         Partido* aux = Partidos::getPartido(*ordenado, i + 1);
         cout << endl << (i + 1) << " - " << aux->getSigla_part() << " - " << aux->getNum_partido() << ", ";
-//        if ((aux->getVotos_leg() + aux->getVotos_nome()) > 1)
-//            cout << (aux->getVotos_leg() + aux->getVotos_nome()) << " votos (";
-//        else
-//            cout << (aux->getVotos_leg() + aux->getVotos_nome()) << " voto (";
-//
-//        if (aux->getVotos_nome() > 1)
-//            cout << aux->getVotos_nome() << " nominais e " << aux->getVotos_leg() << " de legenda), ";
-//        else
-//            cout << aux->getVotos_nome() << " nominal e " << aux->getVotos_leg() << " de legenda), ";
-//
-//        if (aux->getQtd_eleitos() > 1)
-//            cout << aux->getQtd_eleitos() << " candidatos eleitos";
-//        else
-//            cout << aux->getQtd_eleitos() << " candidato eleito";
+        if ((aux->getVotos_leg() + aux->getVotos_nome()) > 1)
+            cout << (aux->getVotos_leg() + aux->getVotos_nome()) << " votos (";
+        else
+            cout << (aux->getVotos_leg() + aux->getVotos_nome()) << " voto (";
+        if (aux->getVotos_nome() > 1)
+            cout << aux->getVotos_nome() << " nominais e " << aux->getVotos_leg() << " de legenda), ";
+        else
+            cout << aux->getVotos_nome() << " nominal e " << aux->getVotos_leg() << " de legenda), ";
+
+        if (aux->getQtd_eleitos() > 1)
+            cout << aux->getQtd_eleitos() << " candidatos eleitos";
+        else
+            cout << aux->getQtd_eleitos() << " candidato eleito";
     }
     //Fim (Item 6)
 
@@ -249,21 +248,21 @@ int main(int argc, char** argv) {
     //Fim (Item 9)
     
     //Inicio (Item 10)
-//    int nominais = Partidos::VotosNome(*parts);
-//    int legenda = Partidos::VotosLeg(*parts);
-//    int validos = nominais + legenda;
-//    cout << "\n\nTotal de votos válidos:    " << validos;
-//    cout << "\nTotal de votos nominais:   " << nominais << " (";
-//    
-//    cout.imbue(locale("pt_BR.utf8"));
-//    cout << (nominais * 100.0 / validos) << "%)";
-//    cout.imbue(locale("C"));
-//    
-//    cout << "\nTotal de votos de Legenda: " << legenda << " (";
-//    
-//    cout.imbue(locale("pt_BR.utf8"));
-//    cout << (legenda * 100.0 / validos) << "%)";
-//    cout.imbue(locale("C"));    
+    int nominais = Partidos::VotosNome(*parts);
+    int legenda = Partidos::VotosLeg(*parts);
+    int validos = nominais + legenda;
+    cout << "\n\nTotal de votos válidos:    " << validos;
+    cout << "\nTotal de votos nominais:   " << nominais << " (";
+    
+    cout.imbue(locale("pt_BR.utf8"));
+    cout << (nominais * 100.0 / validos) << "%)";
+    cout.imbue(locale("C"));
+    
+    cout << "\nTotal de votos de Legenda: " << legenda << " (";
+    
+    cout.imbue(locale("pt_BR.utf8"));
+    cout << (legenda * 100.0 / validos) << "%)";
+    cout.imbue(locale("C"));    
     //Fim (Item 10)
     
     cout << endl << endl;

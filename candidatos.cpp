@@ -90,7 +90,6 @@ int candidatos::num_eleitos(candidatos &c) {
 }
 
 int candidatos::organizar_por_idade(const candidato* c, const candidato* d){
-    candidato *aux;
     string aux1;
     string aux2;
     vector<int> num1;
@@ -198,7 +197,8 @@ int candidatos::qtdHomens(candidatos *c){
     list<candidato*> ::iterator it =  c->lista.begin();
     int cont =0;
     
-    for(int i=0; i<c->lista.size(); i++, it++)
+    int tam = c->lista.size();
+    for(int i=0; i<tam; i++, it++)
         if(!candidato::getSexo(*it).compare("M"))
             cont++;
     return cont;
@@ -208,7 +208,8 @@ int candidatos::qtdMulheres(candidatos* c){
     list<candidato*> ::iterator it =  c->lista.begin();
     int cont =0;
     
-    for(int i=0; i<c->lista.size(); i++, it++)
+    int tam = c->lista.size();
+    for(int i=0; i<tam; i++, it++)
         if(!candidato::getSexo(*it).compare("F"))
             cont++;
     return cont;
@@ -260,7 +261,8 @@ vector<int> candidatos::getIdades(string data, candidatos& c){
     dataA.tm_mon  = num1[1];
     dataA.tm_year = num1[2];
     list<candidato*> :: iterator it = c.lista.begin();
-    for(int i=0;i<c.lista.size();i++, it++){
+    int tam = c.lista.size();
+    for(int i=0;i<tam;i++, it++){
         vector<int> num2 = Retorna_data(candidato::getData_nasc(*it));
         dataB.tm_mday = num2[0];
         dataB.tm_mon  = num2[1];

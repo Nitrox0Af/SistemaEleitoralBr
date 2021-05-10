@@ -82,13 +82,13 @@ void Partidos::organizaPartidos(Partidos& p){
 }
 
 bool Partidos::comparaVotos(Partido* a, Partido* b){
-//    int votosA = a->getVotos_nome() + a->getVotos_leg();
-//    int votosB = b->getVotos_nome() + b->getVotos_leg();
-//    if (votosA > votosB)
-//       return true;
-//    else if(votosA == votosB)
-//        if(a->getNum_partido() < b->getNum_partido())
-//            return true;
+    int votosA = a->getVotos_nome() + a->getVotos_leg();
+    int votosB = b->getVotos_nome() + b->getVotos_leg();
+    if (votosA > votosB)
+       return true;
+    else if(votosA == votosB)
+        if(a->getNum_partido() < b->getNum_partido())
+            return true;
     return false;
 }
 
