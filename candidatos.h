@@ -61,10 +61,30 @@ public:
     //parametro de entrada: a lista de candidato;
 
     static int qtd_candidatos(candidatos& c);
+    //recebe como parametro uma lista de candidatos
+    //retorna a quantidade de candidatos de uma lista
+    
     static int qtdHomens(candidatos* c);
+    //recebe como parametro uma lista de candidatos
+    //retorna a quantidade de homens presente na lista
     static int qtdMulheres(candidatos* c);
+    //recebe como parametro uma lista de candidatos
+    //retorna a quantidade de mulheres presente na lista
+
     static candidato* getCandidato(candidatos& c, int n);
+    //recebe como parametro uma lista de candidatos e um inteiro referente a posição do candidato
+    //retorna o candidato na posição n
+    
     static bool getMaisVotado(candidato* A, candidato* B);
+    //recebe como parametro dois candidatos
+    //retorna true se o candidato A é mais votado
+    //retorna else se o candidato B é mais votado
     static bool getMenosVotado(candidato* A, candidato* B);
+    //recebe como parametro dois candidatos
+    //retorna true se o candidato A é o menos votado
+    //retorna else se o candidato B é o menos votado
+    
     static vector<int>  getIdades(string data, candidatos& c);
+    //recebe como parametro a data da eleição e uma lista de candidatos
+    //retorna um vetor contendo a lista das idades dos candidatos
 };
