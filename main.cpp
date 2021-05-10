@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
         i++;
     }
     candidatos *cand = new candidatos(texto, i);
-    Partidos* parts = new Partidos(arquivo_Part.arquivo, *cand);
+    Partidos* parts = new Partidos(arquivo_Part.arquivo, cand);
 
     //Inicio (Item 1)
     int Numero_eleitos = candidatos::num_eleitos(*cand);
@@ -54,7 +54,8 @@ int main(int argc, char** argv) {
         cout << i << " - ";
         cout << candidato::getNome(*it) << " / ";
         cout << candidato::getNome_urna(*it) << " (";
-        cout << Partidos::getPartido(*parts, *it)->getSigla_part() << ", ";
+        const string sigla = Partidos::getPartido(parts, *it)->getSigla_part();
+        cout << sigla << ", ";
         if(candidato::getVotos_nominais(*it)<=1)
             cout << candidato::getVotos_nominais(*it) << " voto)" << endl;
         else
@@ -73,7 +74,7 @@ int main(int argc, char** argv) {
         cout << i << " - ";
         cout << candidato::getNome(*it) << " / ";
         cout << candidato::getNome_urna(*it) << " (";
-        cout << Partidos::getPartido(*parts, *it)->getSigla_part() << ", ";
+        cout << Partidos::getPartido(parts, *it)->getSigla_part() << ", ";
         if(candidato::getVotos_nominais(*it)<=1)
             cout << candidato::getVotos_nominais(*it) << " voto)" << endl;
         else
@@ -96,7 +97,7 @@ int main(int argc, char** argv) {
         cout << i << " - ";
         cout << candidato::getNome(*it) << " / ";
         cout << candidato::getNome_urna(*it) << " (";
-        cout << Partidos::getPartido(*parts, *it)->getSigla_part() << ", ";
+        cout << Partidos::getPartido(parts, *it)->getSigla_part() << ", ";
         if(candidato::getVotos_nominais(*it)<=1)
             cout << candidato::getVotos_nominais(*it) << " voto)" << endl;
         else
@@ -117,7 +118,7 @@ int main(int argc, char** argv) {
             cout << i << " - ";
             cout << candidato::getNome(*it) << " / ";
             cout << candidato::getNome_urna(*it) << " (";
-            cout << Partidos::getPartido(*parts, *it)->getSigla_part() << ", ";
+            cout << Partidos::getPartido(parts, *it)->getSigla_part() << ", ";
             if(candidato::getVotos_nominais(*it)<=1)
                 cout << candidato::getVotos_nominais(*it) << " voto)" << endl;
             else
@@ -132,7 +133,8 @@ int main(int argc, char** argv) {
     Partidos::organizaPartidos(*ordenado);
     for (int i = 0; i < Partidos::qtd_partidos(ordenado); i++) {
         Partido* aux = Partidos::getPartido(*ordenado, i + 1);
-        cout << endl << (i + 1) << " - " << aux->getSigla_part() << " - " << aux->getNum_partido() << ", ";
+        const int num_part = aux->getNum_partido();
+        cout << endl << (i + 1) << " - " << aux->getSigla_part() << " - " << num_part << ", ";
         if ((aux->getVotos_leg() + aux->getVotos_nome()) > 1)
             cout << (aux->getVotos_leg() + aux->getVotos_nome()) << " votos (";
         else
@@ -141,8 +143,9 @@ int main(int argc, char** argv) {
             cout << aux->getVotos_nome() << " nominais e " << aux->getVotos_leg() << " de legenda), ";
         else
             cout << aux->getVotos_nome() << " nominal e " << aux->getVotos_leg() << " de legenda), ";
-
-        if (aux->getQtd_eleitos() > 1)
+        
+        const int qtd = aux->getQtd_eleitos();
+        if (qtd > 1)
             cout << aux->getQtd_eleitos() << " candidatos eleitos";
         else
             cout << aux->getQtd_eleitos() << " candidato eleito";
@@ -163,8 +166,8 @@ int main(int argc, char** argv) {
     maisVotado.sort(candidatos::getMaisVotado);
     for (int i = 0; maisVotado.front(); i++, maisVotado.pop_front()) {
         candidato* aux = maisVotado.front();
-        string sigla = Partidos::getPartido(*parts, aux)->getSigla_part();
-        int num_part = Partidos::getPartido(*parts, aux)->getNum_partido();
+        string sigla = Partidos::getPartido(parts, aux)->getSigla_part();
+        int num_part = Partidos::getPartido(parts, aux)->getNum_partido();
 
         cout << endl << (i + 1) << " - " << sigla << " - " << num_part << ", ";
 
@@ -260,8 +263,8 @@ int main(int argc, char** argv) {
     //Fim (Item 9)
     
     //Inicio (Item 10)
-    int nominais = Partidos::VotosNome(*parts);
-    int legenda = Partidos::VotosLeg(*parts);
+    int nominais = Partidos::VotosNome(parts);
+    int legenda = Partidos::VotosLeg(parts);
     int validos = nominais + legenda;
     cout << "\n\nTotal de votos válidos:    " << validos;
     cout << "\nTotal de votos nominais:   " << nominais << " (";

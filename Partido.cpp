@@ -1,6 +1,6 @@
 #include "Partido.h"
 
-Partido::Partido(string num_part, string votos_leg, string nome_part, string sigla_part, candidatos& cands) {
+Partido::Partido(string num_part, string votos_leg, string nome_part, string sigla_part, candidatos* cands) {
     int num = stoi(num_part);
     setNum_partido(num);
     num = stoi(votos_leg);
@@ -8,9 +8,9 @@ Partido::Partido(string num_part, string votos_leg, string nome_part, string sig
     setNome_part(nome_part);
     setSigla_part(sigla_part);  
     
-    for (int i = 0; i < candidatos::qtd_candidatos(cands); i++)
-        if (candidato::getNumero_partido(candidatos::getCandidato(cands, i+1)) == this->num_partido)
-            this->cands.push_front(candidatos::getCandidato(cands, i+1));
+    for (int i = 0; i < candidatos::qtd_candidatos(*cands); i++)
+        if (candidato::getNumero_partido(candidatos::getCandidato(*cands, i+1)) == this->num_partido)
+            this->cands.push_front(candidatos::getCandidato(*cands, i+1));
     
     list<candidato*>::iterator it = this->cands.begin();
     int tam = this->cands.size();
@@ -44,36 +44,35 @@ void Partido::setSigla_part(string sigla_part){
     this->sigla_part = sigla_part;
 }
 
-int Partido::getNum_partido(){
+int Partido::getNum_partido() const{
     return this->num_partido;
 }
-int Partido::getVotos_leg(){
+int Partido::getVotos_leg() const{
     return this->votos_leg;
 }
-int Partido::getVotos_nome(){
+int Partido::getVotos_nome() const{
     return this->votos_nome;
 }
-string Partido::getNome_part(){
+string Partido::getNome_part() const{
     return this->nome_part;
 }
-string Partido::getSigla_part(){
+string Partido::getSigla_part() const{
     return this->sigla_part;
 }
-int Partido::getQtd_eleitos(){
-    list<candidato*>::iterator it = this->cands.begin();
+int Partido::getQtd_eleitos() const{
     int cont = 0;
     
-    int tam = this->cands.size();
-    for(int i=0; i < tam; i++, it++)
-        if(candidato::getSituacao(*it))
+    for(auto it : this->cands)
+        if(candidato::getSituacao(it))
             cont++;
+    
     return cont;
 }
-candidato* Partido::getMaisVotado(){
+candidato* Partido::getMaisVotado() {
     this->cands.sort(candidatos::getMaisVotado);
     return this->cands.front();
 }
-candidato* Partido::getMenosVotado(){
+candidato* Partido::getMenosVotado() {
     this->cands.sort(candidatos::getMenosVotado);
     return this->cands.front();
 }

@@ -6,7 +6,7 @@
 string* split(string s);
 //Separa a string do arquivo passada com parametro em palavras
 
-Partidos::Partidos (ifstream& arquivo, candidatos& cands){
+Partidos::Partidos (ifstream& arquivo, candidatos* cands){
     string linha;
     
     getline(arquivo, linha);
@@ -29,49 +29,46 @@ string* split(string s){
     return texto;
 }
 
-int Partidos::qtd_partidos(Partidos* p){
+int Partidos::qtd_partidos(const Partidos* p){
     return p->lista.size();
 }
 
-Partido* Partidos::getPartido(Partidos& p, int pos){
-    list <Partido*> :: iterator it =p.lista.begin();
+Partido* Partidos::getPartido(const Partidos& p, int pos){
     
-    for(int i=0; i<pos-1; i++, it++);
-    
-    return *it;
+    for(auto it: p.lista){
+        pos--;
+        if(pos == 0)
+            return it;
+    }
+    return NULL;
 }
-Partido* Partidos::getPartido(Partidos& p, const candidato* c){
-    list <Partido*> :: iterator it = p.lista.begin();
+Partido* Partidos::getPartido(const Partidos* p, const candidato* c){
     int num_part = candidato::getNumero_partido(c);
-    
-    int tam = p.lista.size();
-    for(int i=0; i<tam; i++, it++){
-        Partido* aux = *it;
+
+    for(auto it : p->lista){
+        Partido* aux = it;
         if(aux->getNum_partido() == num_part)
             return aux;
     }
     return NULL;
 }
 
-int Partidos::VotosNome(Partidos& p){
-    list<Partido*> :: iterator it = p.lista.begin();
+int Partidos::VotosNome(const Partidos* p){
     int result = 0;
-    
-    int tam = p.lista.size();
-    for(int i=0; i<tam; i++, it++){
-        Partido* aux = *it;
-        result += aux->getVotos_nome();
+
+    for(auto it : p->lista){
+        Partido* aux = it;
+        const int votos = aux->getVotos_nome();
+        result += votos;
     }
     return result;
 }
 
-int Partidos::VotosLeg(Partidos& p){
-    list<Partido*> :: iterator it = p.lista.begin();
+int Partidos::VotosLeg(const Partidos* p){
     int result = 0;
     
-    int tam = p.lista.size();
-    for(int i=0; i<tam; i++, it++){
-        Partido* aux = *it;
+    for(auto it : p->lista){
+        Partido* aux = it;
         result += aux->getVotos_leg();
     }
     return result;
@@ -81,7 +78,7 @@ void Partidos::organizaPartidos(Partidos& p){
     p.lista.sort(Partidos::comparaVotos);
 }
 
-bool Partidos::comparaVotos(Partido* a, Partido* b){
+bool Partidos::comparaVotos(const Partido* a, const Partido* b){
     int votosA = a->getVotos_nome() + a->getVotos_leg();
     int votosB = b->getVotos_nome() + b->getVotos_leg();
     if (votosA > votosB)

@@ -9,7 +9,7 @@ using namespace std;
 
 class Partido {
 public:
-    Partido(string num_part, string votos_leg, string nome_part, string sigla_part, candidatos& cands);
+    Partido(string num_part, string votos_leg, string nome_part, string sigla_part, candidatos* cands);
     // construtor do partido que recebe strings respctivas a cada atributa do partido e a lista de candidatos do partido
     
     Partido();
@@ -21,14 +21,20 @@ public:
     void setNome_part(string nome_part);    // seta o nome do partido
     void setSigla_part(string sigla_part);  // seta a sigla do partido
     
-    int getNum_partido();           // retorna o numero do partido
-    int getVotos_leg();             // retorna os votos de legenda do partido
-    int getVotos_nome();            // retorna os votos nominais do partido
-    string getNome_part();          // retorna o nome do partido
-    string getSigla_part();         // retorna a sigla do partido
-    int getQtd_eleitos();           // retorna a quantidade de quantidatos eleitos
-    candidato* getMaisVotado();     // retorna o candidato mais votado do partido
-    candidato* getMenosVotado();    // retorna o candidato menos votado do partido
+    int         getNum_partido() const;    // retorna o numero do partido
+    int         getVotos_leg()   const;    // retorna os votos de legenda do partido
+    int         getVotos_nome()  const;    // retorna os votos nominais do partido
+    string      getNome_part()   const;    // retorna o nome do partido
+    string      getSigla_part()  const;    // retorna a sigla do partido
+    int         getQtd_eleitos() const;    // retorna a quantidade de quantidatos eleitos
+    
+    candidato*  getMaisVotado()  ;    
+    // retorna o candidato mais votado do partido
+    // lista de candidatos do partido tem sua ordem modificada
+    
+    candidato*  getMenosVotado() ;    
+    // retorna o candidato menos votado do partido
+    // lista de candidatos do partido tem sua ordem modificada
 private:
     int num_partido;
     int votos_leg ;
@@ -37,4 +43,3 @@ private:
     string sigla_part;
     list<candidato*> cands;
 };
-
