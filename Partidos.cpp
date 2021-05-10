@@ -1,8 +1,10 @@
 #include <algorithm>
+#include <ratio>
 
 #include "Partidos.h"
 
 string* split(string s);
+//Separa a string do arquivo passada com parametro em palavras
 
 Partidos::Partidos (ifstream& arquivo, candidatos& cands){
     string linha;
@@ -13,6 +15,8 @@ Partidos::Partidos (ifstream& arquivo, candidatos& cands){
         this->lista.push_back(new Partido(palavras[0], palavras[1], palavras[2], palavras[3], cands));
         delete[] palavras;
     }
+}
+Partidos::Partidos(){
 }
 
 string* split(string s){
@@ -40,7 +44,8 @@ Partido* Partidos::getPartido(Partidos& p, candidato* c){
     list <Partido*> :: iterator it =p.lista.begin();
     int num_part = candidato::getNumero_partido(c);
     
-    for(int i=0; i<p.lista.size(); i++, it++){
+    int tam = p.lista.size();
+    for(int i=0; i<tam; i++, it++){
         Partido* aux = *it;
         if(aux->getNum_partido() == num_part)
             return aux;
@@ -52,7 +57,8 @@ int Partidos::VotosNome(Partidos& p){
     list<Partido*> :: iterator it = p.lista.begin();
     int result = 0;
     
-    for(int i=0; i<p.lista.size(); i++, it++){
+    int tam = p.lista.size();
+    for(int i=0; i<tam; i++, it++){
         Partido* aux = *it;
         result += aux->getVotos_nome();
     }
@@ -63,7 +69,8 @@ int Partidos::VotosLeg(Partidos& p){
     list<Partido*> :: iterator it = p.lista.begin();
     int result = 0;
     
-    for(int i=0; i<p.lista.size(); i++, it++){
+    int tam = p.lista.size();
+    for(int i=0; i<tam; i++, it++){
         Partido* aux = *it;
         result += aux->getVotos_leg();
     }
@@ -75,13 +82,13 @@ void Partidos::organizaPartidos(Partidos& p){
 }
 
 bool Partidos::comparaVotos(Partido* a, Partido* b){
-    int votosA = a->getVotos_nome() + a->getVotos_leg();
-    int votosB = b->getVotos_nome() + b->getVotos_leg();
-    if (votosA > votosB)
-       return true;
-    else if(votosA == votosB)
-        if(a->getNum_partido() < b->getNum_partido())
-            return true;
+//    int votosA = a->getVotos_nome() + a->getVotos_leg();
+//    int votosB = b->getVotos_nome() + b->getVotos_leg();
+//    if (votosA > votosB)
+//       return true;
+//    else if(votosA == votosB)
+//        if(a->getNum_partido() < b->getNum_partido())
+//            return true;
     return false;
 }
 
