@@ -55,7 +55,10 @@ int main(int argc, char** argv) {
         cout << candidato::getNome(*it) << " / ";
         cout << candidato::getNome_urna(*it) << " (";
         cout << Partidos::getPartido(*parts, *it)->getSigla_part() << ", ";
-        cout << candidato::getVotos_nominais(*it) << " votos)" << endl;
+        if(candidato::getVotos_nominais(*it)<=1)
+            cout << candidato::getVotos_nominais(*it) << " voto)" << endl;
+        else
+            cout << candidato::getVotos_nominais(*it) << " votos)" << endl;
     }
     cout << endl;
     //Fim(Item 2)
@@ -71,7 +74,10 @@ int main(int argc, char** argv) {
         cout << candidato::getNome(*it) << " / ";
         cout << candidato::getNome_urna(*it) << " (";
         cout << Partidos::getPartido(*parts, *it)->getSigla_part() << ", ";
-        cout << candidato::getVotos_nominais(*it) << " votos)" << endl;
+        if(candidato::getVotos_nominais(*it)<=1)
+            cout << candidato::getVotos_nominais(*it) << " voto)" << endl;
+        else
+            cout << candidato::getVotos_nominais(*it) << " votos)" << endl;
     }
     cout << endl;
     //Fim(Item 3)
@@ -91,7 +97,10 @@ int main(int argc, char** argv) {
         cout << candidato::getNome(*it) << " / ";
         cout << candidato::getNome_urna(*it) << " (";
         cout << Partidos::getPartido(*parts, *it)->getSigla_part() << ", ";
-        cout << candidato::getVotos_nominais(*it) << " votos)" << endl;
+        if(candidato::getVotos_nominais(*it)<=1)
+            cout << candidato::getVotos_nominais(*it) << " voto)" << endl;
+        else
+            cout << candidato::getVotos_nominais(*it) << " votos)" << endl;
     }
     cout << endl;
     //Fim(Item 4)
@@ -109,7 +118,10 @@ int main(int argc, char** argv) {
             cout << candidato::getNome(*it) << " / ";
             cout << candidato::getNome_urna(*it) << " (";
             cout << Partidos::getPartido(*parts, *it)->getSigla_part() << ", ";
-            cout << candidato::getVotos_nominais(*it) << " votos)" << endl;
+            if(candidato::getVotos_nominais(*it)<=1)
+                cout << candidato::getVotos_nominais(*it) << " voto)" << endl;
+            else
+                cout << candidato::getVotos_nominais(*it) << " votos)" << endl;
         }
     }
     //Fim(Item 5)
@@ -262,7 +274,7 @@ int main(int argc, char** argv) {
     
     cout.imbue(locale("pt_BR.utf8"));
     cout << (legenda * 100.0 / validos) << "%)";
-    cout.imbue(locale("C"));    
+    cout.imbue(locale("C"));
     //Fim (Item 10)
     
     cout << endl << endl;

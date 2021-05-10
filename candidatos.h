@@ -23,7 +23,7 @@ public:
     //destrutor
 
     //operadores:
-    candidatos& operator=(candidatos& c);
+    candidatos& operator=(const candidatos& c);
     //operador de "=" para tipo candidatos
     //se a referencia tiver vazia, o metodo aloca novos espacos e copia as informacoes de c,
     //caso contrario, o metodo destroi as informacoes dele e aloca novos espacos
@@ -31,7 +31,7 @@ public:
 
     //Metodos:
 
-    static candidatos* getCandidatosEleitos(candidatos& c);
+    static candidatos* getCandidatosEleitos(const candidatos& c);
     //retorno dos candidatos eleitos, tipo candiatos alocado;
     //parametro de entrada: a lista dos candidatos
 
@@ -39,7 +39,7 @@ public:
     //retorno do ponteiro da lista de candidato contida no tipo condidatos;
     //parametro de entrada: a lista dos candidatos
 
-    static int num_eleitos(candidatos& c);
+    static int num_eleitos(const candidatos& c);
     //retorno do numero de candidatos eleitos;
     //parametro de entrada: a lista dos candidatos
 
@@ -54,7 +54,7 @@ public:
     // o primeiro é aquele com mais votos e o ultimo aquele com menos
     //parametro de entrada: a lista de candidato;
 
-    static candidatos* candidatosMaisVotados(candidatos &c);
+    static candidatos* candidatosMaisVotados(const candidatos &c);
     //retorno tipo candidato alocado, o tipo passado como parametro sera organizadode forma
     //a lista eh ordenada pela quantidade de votos, ou seja,
     // o primeiro é aquele com mais votos e o ultimo aquele com menos

@@ -43,29 +43,28 @@ candidatos::~candidatos() {
 }
 
 //operadores:
-candidatos& candidatos::operator=(candidatos &c) {
+candidatos& candidatos::operator=(const candidatos &c) {
     if(!this->lista.empty()){
         delete this;
     }
 
-    list<candidato*>::iterator it;
-    for (it = c.lista.begin(); it != c.lista.end(); ++it) {
+    //list<const candidato*>::iterator it;
+    for (auto it: c.lista){
         candidato *aux1 = new candidato();
-        *aux1 = *(*it);
+        *aux1 = *(it);
         this->lista.push_front(aux1);
     }
     return *this;
 }
 
 //Funcoes
-candidatos* candidatos::getCandidatosEleitos(candidatos &c) {
+candidatos* candidatos::getCandidatosEleitos(const candidatos &c) {
     candidatos* aux = new candidatos;
     int i = 0;
-    list<candidato *>::iterator it;
-    for (it = c.lista.begin(); it != c.lista.end(); ++it) {
-        if (candidato::getSituacao(*it)) {
+    for (auto it: c.lista) {
+        if (candidato::getSituacao(it)) {
             candidato *aux1 = new candidato();
-            *aux1 = *(*it);
+            *aux1 = *(it);
             aux->lista.push_front(aux1);
             i++;
         }
@@ -78,10 +77,9 @@ list<candidato*> candidatos::getLista(const candidatos* c){
     return c->lista;
 }
 
-int candidatos::num_eleitos(candidatos &c) {
+int candidatos::num_eleitos(const candidatos &c) {
     int i = 0;
-    list<candidato *>::iterator it;
-    for (it = c.lista.begin(); it != c.lista.end(); ++it) {
+    for (auto it = c.lista.begin(); it != c.lista.end(); ++it) {
         if (candidato::getSituacao(*it)) {
             i++;
         }
@@ -150,7 +148,7 @@ void candidatos::organizar_por_votos_nominais(candidatos *c) {
     }
 }
 
-candidatos* candidatos::candidatosMaisVotados(candidatos &c){
+candidatos* candidatos::candidatosMaisVotados(const candidatos &c){
     candidatos* aux = new candidatos;
     *aux=c;
     organizar_por_votos_nominais(aux);
