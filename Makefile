@@ -9,7 +9,7 @@
 
 # nome do compilador
 CPP = g++
-//
+
 # opções de compilação
 CFLAGS = -Wall -g
 CPPFLAGS = -std=c++11

@@ -31,4 +31,3 @@ string Arquivo::getNome() {
 void Arquivo::fechar(){
     this->arquivo.close();
 }
-//
