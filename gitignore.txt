@@ -1,3 +1,4 @@
 _MACOSX/
 partidos.csv
 candidatos.csv
+//
